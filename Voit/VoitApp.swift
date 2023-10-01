@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct VoitApp: App {
     @ObservedObject var router = Router()
-    
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Recording.self
@@ -27,8 +27,22 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Root()
-                .environmentObject(router)
+            NavigationStack(path: $router.path) {
+                HomeView()
+                    .navigationDestination(for: Router.Screen.self) { screen in
+                        switch screen {
+                        case .settings(let page):
+                            switch page {
+                            case .root:
+                                SettingsView()
+                            }
+                        default:
+                            HomeView()
+                        }
+                    }
+            }
+            .tint(.accentColor)
+            .environmentObject(router)
         }
         .modelContainer(sharedModelContainer)
     }

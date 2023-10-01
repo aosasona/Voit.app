@@ -8,27 +8,26 @@
 import SwiftUI
 
 final class Router: ObservableObject {
+    public enum Settings: Codable, Hashable {
+        case root
+    }
+
+    public enum Screen: Codable, Hashable {
+        case home
+        case settings(Settings)
+    }
+
     @Published var path = NavigationPath()
 
-    enum Screen: Codable, Hashable {
-        case Home
-        case Settings
+    func navigate(to destination: Screen) {
+        path.append(destination)
     }
 
-    enum Destination: Codable, Hashable {
-        case Root
-        case Back
-        case Screen(Screen)
+    func goBack() {
+        path.removeLast()
     }
 
-    func navigate(_ to: Destination) {
-        switch to {
-        case let .Screen(screen):
-            path.append(screen)
-        case .Back:
-            path.removeLast()
-        case .Root:
-            path.removeLast(path.count)
-        }
+    func goToRoot() {
+        path.removeLast(path.count)
     }
 }
