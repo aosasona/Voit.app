@@ -8,21 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
-		E29BAC902AC9A66400D2DE5C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8F2AC9A66400D2DE5C /* ContentView.swift */; };
-		E29BAC922AC9A66400D2DE5C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC912AC9A66400D2DE5C /* Item.swift */; };
+		E29BAC902AC9A66400D2DE5C /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8F2AC9A66400D2DE5C /* Root.swift */; };
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
+		E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA02AC9A96700D2DE5C /* HomeView.swift */; };
+		E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA22AC9BE6300D2DE5C /* Router.swift */; };
+		E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */; };
+		E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */; };
+		E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACAC2AC9CA9400D2DE5C /* Recording.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
-		E29BAC8F2AC9A66400D2DE5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		E29BAC912AC9A66400D2DE5C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		E29BAC8F2AC9A66400D2DE5C /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E29BAC982AC9A66600D2DE5C /* Voit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Voit.entitlements; sourceTree = "<group>"; };
 		E29BAC992AC9A66600D2DE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E29BACA02AC9A96700D2DE5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E29BACA22AC9BE6300D2DE5C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
+		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,9 +63,11 @@
 		E29BAC8C2AC9A66400D2DE5C /* Voit */ = {
 			isa = PBXGroup;
 			children = (
+				E29BACA82AC9CA5600D2DE5C /* Models */,
+				E29BAC9F2AC9A91A00D2DE5C /* Views */,
 				E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */,
-				E29BAC8F2AC9A66400D2DE5C /* ContentView.swift */,
-				E29BAC912AC9A66400D2DE5C /* Item.swift */,
+				E29BAC8F2AC9A66400D2DE5C /* Root.swift */,
+				E29BACA22AC9BE6300D2DE5C /* Router.swift */,
 				E29BAC932AC9A66600D2DE5C /* Assets.xcassets */,
 				E29BAC982AC9A66600D2DE5C /* Voit.entitlements */,
 				E29BAC992AC9A66600D2DE5C /* Info.plist */,
@@ -72,6 +82,24 @@
 				E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E29BACA02AC9A96700D2DE5C /* HomeView.swift */,
+				E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */,
+				E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E29BACA82AC9CA5600D2DE5C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E29BACAC2AC9CA9400D2DE5C /* Recording.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,9 +172,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E29BAC902AC9A66400D2DE5C /* ContentView.swift in Sources */,
-				E29BAC922AC9A66400D2DE5C /* Item.swift in Sources */,
+				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
+				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
+				E29BAC902AC9A66400D2DE5C /* Root.swift in Sources */,
+				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
+				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
+				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

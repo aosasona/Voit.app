@@ -5,14 +5,16 @@
 //  Created by Ayodeji Osasona on 01/10/2023.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct VoitApp: App {
+    @ObservedObject var router = Router()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Recording.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +27,8 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Root()
+                .environmentObject(router)
         }
         .modelContainer(sharedModelContainer)
     }
