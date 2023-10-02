@@ -20,14 +20,14 @@ final class Router: ObservableObject {
     @Published var path = NavigationPath()
 
     func navigate(to destination: Screen) {
-        path.append(destination)
+        self.path.append(destination)
     }
 
     func goBack() {
-        path.removeLast()
+        self.path.removeLast()
     }
 
     func goToRoot() {
-        path.removeLast(path.count)
+        self.path.removeLast(path.count)
     }
 }
