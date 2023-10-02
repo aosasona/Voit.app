@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct VoitApp: App {
     @ObservedObject var router = Router()
+    @ObservedObject var processingQueue = ProcessingQueue()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -43,6 +44,7 @@ struct VoitApp: App {
             }
             .tint(.accentColor)
             .environmentObject(router)
+            .environmentObject(processingQueue)
         }
         .modelContainer(sharedModelContainer)
     }

@@ -15,6 +15,9 @@
 		E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */; };
 		E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */; };
 		E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACAC2AC9CA9400D2DE5C /* Recording.swift */; };
+		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
+		E2DC9B512ACA02C4008135E3 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */; };
+		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
 		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
+		E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
+		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +90,8 @@
 		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E29BACA02AC9A96700D2DE5C /* HomeView.swift */,
-				E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */,
-				E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */,
+				E2DC9B4D2AC9FE1A008135E3 /* Settings */,
+				E29BACB02AC9FD5500D2DE5C /* Home */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -95,8 +100,28 @@
 			isa = PBXGroup;
 			children = (
 				E29BACAC2AC9CA9400D2DE5C /* Recording.swift */,
+				E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E29BACB02AC9FD5500D2DE5C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E29BACA02AC9A96700D2DE5C /* HomeView.swift */,
+				E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */,
+				E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */,
+				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		E2DC9B4D2AC9FE1A008135E3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,9 +196,12 @@
 			files = (
 				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
 				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
+				E2DC9B512ACA02C4008135E3 /* ProcessingQueue.swift in Sources */,
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
+				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
+				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

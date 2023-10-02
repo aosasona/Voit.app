@@ -8,36 +8,38 @@
 import SwiftUI
 
 struct ProcessingQueueView: View {
+    @EnvironmentObject var processingQueue: ProcessingQueue
     @State private var showQueue = false
-    
+
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
                 HStack {
-                    Text("Processing 2 items")
-                        .font(.subheadline.weight(.medium))
-                    
+                    VStack(alignment: .leading) {
+                        Text(processingQueue.isEmpty() ? "Tap '+' to add a new recording " : "Processing \(processingQueue.count()) recording\(processingQueue.count() > 1 ? "s" : "")")
+                            .font(.subheadline.weight(.medium))
+
+                        if !processingQueue.isEmpty() {
+                            Text("Tap to expand")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
                     Spacer()
-                    
-                    Button(action: { }) {
-                        Image(systemName: "plus")
-                            .padding([.all], 8)
-                            .font(.title3)
-                            .background(.accent.opacity(0.1))
-                            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    }
-                    .sheet(isPresented: $showQueue) {
-                        Text("Sheet")
-                            .presentationDetents([.fraction(0.3), .large])
-                            .presentationDragIndicator(.automatic)
-                    }
+
+                    AddRecordingView()
                 }
-                .padding([.horizontal], 16)
-                .padding([.vertical], 15)
+                .padding(.horizontal, 16)
+                .padding(.vertical, processingQueue.isEmpty() ? 13 : 16)
             }
-            .background(.accent.opacity(0.02))
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+            .sheet(isPresented: $showQueue) {
+                Text("Sheet")
+                    .presentationDetents([.fraction(0.3), .large])
+                    .presentationDragIndicator(.automatic)
+            }
         }
         .onTapGesture {
             showQueue = true
