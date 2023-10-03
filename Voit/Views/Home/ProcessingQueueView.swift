@@ -42,7 +42,7 @@ struct ProcessingQueueView: View {
             }
         }
         .onTapGesture {
-            showQueue = true
+            if !processingQueue.isEmpty() { showQueue = true }
         }
         .fixedSize(horizontal: false, vertical: true)
         .padding()
