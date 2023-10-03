@@ -90,8 +90,8 @@
 		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E2DC9B4D2AC9FE1A008135E3 /* Settings */,
-				E29BACB02AC9FD5500D2DE5C /* Home */,
+				E2DC9B552ACB95B3008135E3 /* Settings */,
+				E2DC9B542ACB9599008135E3 /* Home */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,7 +105,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E29BACB02AC9FD5500D2DE5C /* Home */ = {
+		E2DC9B542ACB9599008135E3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				E29BACA02AC9A96700D2DE5C /* HomeView.swift */,
@@ -113,15 +113,15 @@
 				E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */,
 				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
 			);
-			name = Home;
+			path = Home;
 			sourceTree = "<group>";
 		};
-		E2DC9B4D2AC9FE1A008135E3 /* Settings */ = {
+		E2DC9B552ACB95B3008135E3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */,
 			);
-			name = Settings;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
