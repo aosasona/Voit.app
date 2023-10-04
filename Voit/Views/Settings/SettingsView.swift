@@ -7,17 +7,20 @@
 
 import SwiftUI
 
+// TODO: add licenses
+
 struct SettingsView: View {
+    @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModels = .tiny
+
     var body: some View {
         List {
             Section {
-                NavigationLink(destination: Text("Appearance")) {
-                    Label("Appearance", systemImage: "paintpalette")
-                }
-                NavigationLink(destination: Text("Appearance")) {
-                    Label("Appearance", systemImage: "paintpalette")
+                Picker("Select model", selection: $selectedModel) {
+                    Text("Tiny (default)").tag(WhisperModels.tiny)
+                    Text("Standard").tag(WhisperModels.base)
                 }
             }
+            .pickerStyle(.menu)
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.automatic)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GetStartedView: View {
-    @AppStorage("hasCompletedSetup") var hasCompletedSetup: Bool = false
+    @AppStorage(AppStorageKey.hasCompletedSetup.rawValue) var hasCompletedSetup: Bool = false
     
     var body: some View {
         VStack {

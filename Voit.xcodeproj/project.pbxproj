@@ -20,6 +20,7 @@
 		E2B633042ACDEADC0043B42D /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E2B633032ACDEADC0043B42D /* Zip */; };
 		E2B633072ACE04090043B42D /* SetupStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B633062ACE04090043B42D /* SetupStatusView.swift */; };
 		E2B633092ACE05E80043B42D /* GetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B633082ACE05E80043B42D /* GetStartedView.swift */; };
+		E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */; };
 		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
 		E2DC9B512ACA02C4008135E3 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */; };
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
@@ -43,6 +44,7 @@
 		E2B632FD2ACDCB030043B42D /* models.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = models.zip; path = Voit/Assets/models.zip; sourceTree = SOURCE_ROOT; };
 		E2B633062ACE04090043B42D /* SetupStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupStatusView.swift; sourceTree = "<group>"; };
 		E2B633082ACE05E80043B42D /* GetStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedView.swift; sourceTree = "<group>"; };
+		E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
 		E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E27DDFBF2ACE261100E5C8D6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E29BAC812AC9A66400D2DE5C = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		E29BAC8C2AC9A66400D2DE5C /* Voit */ = {
 			isa = PBXGroup;
 			children = (
+				E27DDFBF2ACE261100E5C8D6 /* Utils */,
 				E2DC9B5E2ACCEEEF008135E3 /* Styles */,
 				E2DC9B592ACCDE03008135E3 /* Controllers */,
 				E29BACA82AC9CA5600D2DE5C /* Models */,
@@ -257,6 +268,7 @@
 				E2DC9B5D2ACCEEE4008135E3 /* SetupView.swift in Sources */,
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
+				E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2B633072ACE04090043B42D /* SetupStatusView.swift in Sources */,

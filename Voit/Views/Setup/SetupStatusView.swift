@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SetupStatusView: View {
     @State private var showProgressIndicator = true
+
     @Binding var progress: CGFloat
     @Binding var status: SetupStatus
 

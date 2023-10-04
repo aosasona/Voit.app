@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum WhisperModels: String, CaseIterable, Identifiable {
+    case tiny
+    case base
+    
+    var id: Self { self }
+}
+
 final class ModelsController {
     public var modelsDirectory: URL {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]

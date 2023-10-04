@@ -10,7 +10,8 @@ import SwiftUI
 
 @main
 struct VoitApp: App {
-    @AppStorage("hasCompletedSetup") var hasCompletedSetup: Bool = false
+    @AppStorage(AppStorageKey.hasCompletedSetup.rawValue) var hasCompletedSetup: Bool = false
+    
     @ObservedObject var router = Router()
     @ObservedObject var processingQueue = ProcessingQueue()
     

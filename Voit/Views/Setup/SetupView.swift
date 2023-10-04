@@ -21,10 +21,10 @@ enum SetupStatus: Int, CaseIterable {
 struct SetupView: View {
     private var modelsController = ModelsController()
 
-    @AppStorage("hasCompletedSetup") var hasCompletedSetup: Bool = false
-    @AppStorage("hasUnpackedModels") var hasUnpackedModels: Bool = false
-    @AppStorage("selectedModel") var selectedModel: String = ""
-    
+    @AppStorage(AppStorageKey.hasCompletedSetup.rawValue) var hasCompletedSetup: Bool = false
+    @AppStorage(AppStorageKey.hasUnpackedModels.rawValue) var hasUnpackedModels: Bool = false
+    @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModels = .tiny
+
     @State private var showErrorAlert = false
     @State private var status: SetupStatus = .starting
     @State private var progress: CGFloat = 0.0
@@ -62,7 +62,7 @@ struct SetupView: View {
         do {
             updateStatus(.starting)
 
-            if (hasCompletedSetup || hasUnpackedModels) && selectedModel != "" {
+            if hasCompletedSetup || hasUnpackedModels {
                 updateStatus(.done)
                 return
             }
@@ -89,6 +89,7 @@ struct SetupView: View {
             })
 
             updateStatus(.done)
+            selectedModel = .tiny
             hasUnpackedModels = true
         } catch {
             showErrorAlert = true
