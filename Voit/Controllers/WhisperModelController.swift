@@ -8,4 +8,12 @@
 import Foundation
 
 final class WhisperModelController {
+    public var modelsDirectory: URL {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return URL(fileURLWithPath: "models", isDirectory: true, relativeTo: documentDirectory)
+    }
+    
+    public var bundledModelsArchive: URL? {
+        return Bundle.main.url(forResource: "models", withExtension: "zip")
+    }
 }

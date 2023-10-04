@@ -10,8 +10,11 @@ import SwiftUI
 
 @main
 struct VoitApp: App {
+    @AppStorage("hasDownloadedDefaultModel") var hasDownloadedDefaultModel: Bool = false
     @ObservedObject var router = Router()
     @ObservedObject var processingQueue = ProcessingQueue()
+    
+    // TODO: make sure at least one model exists before trying to load app (download model during app setup)
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -28,23 +31,27 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $router.path) {
-                HomeView()
-                    .navigationDestination(for: Router.Screen.self) { screen in
-                        switch screen {
-                        case .settings(let page):
-                            switch page {
-                            case .root:
-                                SettingsView()
+            if !hasDownloadedDefaultModel {
+                SetupView()
+            } else {
+                NavigationStack(path: $router.path) {
+                    HomeView()
+                        .navigationDestination(for: Router.Screen.self) { screen in
+                            switch screen {
+                            case .settings(let page):
+                                switch page {
+                                case .root:
+                                    SettingsView()
+                                }
+                            default:
+                                HomeView()
                             }
-                        default:
-                            HomeView()
                         }
-                    }
+                }
+                .tint(.accentColor)
+                .environmentObject(router)
+                .environmentObject(processingQueue)
             }
-            .tint(.accentColor)
-            .environmentObject(router)
-            .environmentObject(processingQueue)
         }
         .modelContainer(sharedModelContainer)
     }

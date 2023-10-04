@@ -19,7 +19,6 @@ struct HomeView: View {
             }
 
             ProcessingQueueView()
-                .padding([.bottom], 30)
         }
         .safeAreaPadding([.bottom])
     }

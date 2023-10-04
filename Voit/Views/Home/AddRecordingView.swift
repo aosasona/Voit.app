@@ -29,8 +29,10 @@ struct AddRecordingView: View {
                 print(error.localizedDescription)
             }
         }
-        .alert("Failed to import file, please try again. Report this as a bug if this issue persists!", isPresented: $showErrorAlert) {
-            Button("OK", role: .cancel) {}
+        .alert("Import failed", isPresented: $showErrorAlert) {
+            Button("OK", role: .cancel, action: {})
+        } message: {
+            Text("Failed to import file, please try again. Report this as a bug if this issue persists!")
         }
     }
 }
