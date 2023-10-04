@@ -8,11 +8,37 @@
 import SwiftUI
 
 struct GetStartedView: View {
+    @AppStorage("hasCompletedSetup") var hasCompletedSetup: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            
+            VStack {
+                Image(systemName: "checkmark.circle")
+                    .foregroundStyle(.white)
+                    .font(.system(size: 64.0))
+                
+                Text("You're all set!")
+                    .foregroundStyle(.white)
+                    .font(.title2.bold())
+                    .padding()
+            }
+            
+            Spacer()
+            
+            Button("Get Started") {
+                hasCompletedSetup = true
+            }
+            .buttonStyle(PrimaryButton())
+            .padding()
+        }
     }
 }
 
 #Preview {
-    GetStartedView()
+    ZStack {
+        Rectangle().fill().ignoresSafeArea()
+        GetStartedView()
+    }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 @main
 struct VoitApp: App {
-    @AppStorage("hasDownloadedDefaultModel") var hasDownloadedDefaultModel: Bool = false
+    @AppStorage("hasCompletedSetup") var hasCompletedSetup: Bool = false
     @ObservedObject var router = Router()
     @ObservedObject var processingQueue = ProcessingQueue()
     
@@ -31,7 +31,7 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if !hasDownloadedDefaultModel {
+            if !hasCompletedSetup {
                 SetupView()
             } else {
                 NavigationStack(path: $router.path) {

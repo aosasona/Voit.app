@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class WhisperModelController {
+final class ModelsController {
     public var modelsDirectory: URL {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return URL(fileURLWithPath: "models", isDirectory: true, relativeTo: documentDirectory)

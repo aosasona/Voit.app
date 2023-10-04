@@ -18,10 +18,12 @@
 		E2B632FE2ACDCB030043B42D /* models.zip in Resources */ = {isa = PBXBuildFile; fileRef = E2B632FD2ACDCB030043B42D /* models.zip */; };
 		E2B633012ACDD5060043B42D /* ProgressIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E2B633002ACDD5060043B42D /* ProgressIndicatorView */; };
 		E2B633042ACDEADC0043B42D /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = E2B633032ACDEADC0043B42D /* Zip */; };
+		E2B633072ACE04090043B42D /* SetupStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B633062ACE04090043B42D /* SetupStatusView.swift */; };
+		E2B633092ACE05E80043B42D /* GetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B633082ACE05E80043B42D /* GetStartedView.swift */; };
 		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
 		E2DC9B512ACA02C4008135E3 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */; };
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
-		E2DC9B5B2ACCDE2B008135E3 /* WhisperModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* WhisperModelController.swift */; };
+		E2DC9B5B2ACCDE2B008135E3 /* ModelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* ModelsController.swift */; };
 		E2DC9B5D2ACCEEE4008135E3 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5C2ACCEEE4008135E3 /* SetupView.swift */; };
 		E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */; };
 /* End PBXBuildFile section */
@@ -39,10 +41,12 @@
 		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
 		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		E2B632FD2ACDCB030043B42D /* models.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = models.zip; path = Voit/Assets/models.zip; sourceTree = SOURCE_ROOT; };
+		E2B633062ACE04090043B42D /* SetupStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupStatusView.swift; sourceTree = "<group>"; };
+		E2B633082ACE05E80043B42D /* GetStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedView.swift; sourceTree = "<group>"; };
 		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
 		E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
-		E2DC9B5A2ACCDE2B008135E3 /* WhisperModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperModelController.swift; sourceTree = "<group>"; };
+		E2DC9B5A2ACCDE2B008135E3 /* ModelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsController.swift; sourceTree = "<group>"; };
 		E2DC9B5C2ACCEEE4008135E3 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,9 +108,9 @@
 		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E2B633052ACE03D50043B42D /* Setup */,
 				E2DC9B552ACB95B3008135E3 /* Settings */,
 				E2DC9B542ACB9599008135E3 /* Home */,
-				E2DC9B5C2ACCEEE4008135E3 /* SetupView.swift */,
 				E2B632FD2ACDCB030043B42D /* models.zip */,
 			);
 			path = Views;
@@ -119,6 +123,16 @@
 				E2DC9B502ACA02C4008135E3 /* ProcessingQueue.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E2B633052ACE03D50043B42D /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				E2DC9B5C2ACCEEE4008135E3 /* SetupView.swift */,
+				E2B633062ACE04090043B42D /* SetupStatusView.swift */,
+				E2B633082ACE05E80043B42D /* GetStartedView.swift */,
+			);
+			path = Setup;
 			sourceTree = "<group>";
 		};
 		E2DC9B542ACB9599008135E3 /* Home */ = {
@@ -143,7 +157,7 @@
 		E2DC9B592ACCDE03008135E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E2DC9B5A2ACCDE2B008135E3 /* WhisperModelController.swift */,
+				E2DC9B5A2ACCDE2B008135E3 /* ModelsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -238,13 +252,15 @@
 				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
 				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
 				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
-				E2DC9B5B2ACCDE2B008135E3 /* WhisperModelController.swift in Sources */,
+				E2DC9B5B2ACCDE2B008135E3 /* ModelsController.swift in Sources */,
 				E2DC9B512ACA02C4008135E3 /* ProcessingQueue.swift in Sources */,
 				E2DC9B5D2ACCEEE4008135E3 /* SetupView.swift in Sources */,
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
+				E2B633072ACE04090043B42D /* SetupStatusView.swift in Sources */,
+				E2B633092ACE05E80043B42D /* GetStartedView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
 			);
