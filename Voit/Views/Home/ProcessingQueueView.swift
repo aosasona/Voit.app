@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ProcessingQueueView: View {
-    @EnvironmentObject var processingQueue: TranscriptionEngine
+    @EnvironmentObject var transcriptionEngine: TranscriptionEngine
     @State private var showQueue = false
 
     var body: some View {
         ZStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(processingQueue.isEmpty() ? "Tap '+' to add a new recording " : "Processing \(processingQueue.count()) recording\(processingQueue.count() > 1 ? "s" : "")")
+                    Text(transcriptionEngine.queueIsEmpty ? "Tap '+' to add a new recording " : "Processing \(transcriptionEngine.enqueuedItems) recording\(transcriptionEngine.enqueuedItems > 1 ? "s" : "")")
                         .font(.subheadline.weight(.medium))
 
-                    if !processingQueue.isEmpty() {
+                    if !transcriptionEngine.queueIsEmpty {
                         Text("Tap to expand")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -30,7 +30,7 @@ struct ProcessingQueueView: View {
                 AddRecordingView()
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, processingQueue.isEmpty() ? 13 : 16)
+            .padding(.vertical, transcriptionEngine.queueIsEmpty ? 13 : 16)
         }
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
@@ -40,7 +40,7 @@ struct ProcessingQueueView: View {
                 .presentationDragIndicator(.automatic)
         }
         .onTapGesture {
-            if !processingQueue.isEmpty() { showQueue = true }
+            if !transcriptionEngine.queueIsEmpty { showQueue = true }
         }
         .fixedSize(horizontal: false, vertical: true)
         .padding()

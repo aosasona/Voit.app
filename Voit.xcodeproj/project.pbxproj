@@ -16,6 +16,7 @@
 		E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF12ACF4C4200E5C8D6 /* AudioKit */; };
 		E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */; };
 		E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */; };
+		E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */; };
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		E27DDFE52ACF458300E5C8D6 /* base-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "base-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Controller.swift"; sourceTree = "<group>"; };
 		E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
+		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				E29BACAC2AC9CA9400D2DE5C /* Recording.swift */,
 				E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */,
+				E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
 				E2DC9B5B2ACCDE2B008135E3 /* Model+Controller.swift in Sources */,
 				E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */,
+				E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */,
 				E2DC9B5D2ACCEEE4008135E3 /* StartupView.swift in Sources */,
 				E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Controller.swift in Sources */,
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import SwiftWhisper
 
-// TODO: load unprocessed audio files on startup
+// TODO: load unprocessed recordings on startup
 final class TranscriptionEngine: ObservableObject {
     @Published var hasInitializedContext = false
     
@@ -19,6 +19,9 @@ final class TranscriptionEngine: ObservableObject {
     init() {
         self.queue = ProcessingQueue()
     }
+    
+    public var enqueuedItems: Int { return self.queue.count() }
+    public var queueIsEmpty: Bool { return self.queue.count() <= 0 }
     
     func initContext() throws {}
     
