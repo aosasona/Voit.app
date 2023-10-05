@@ -8,16 +8,17 @@
 import SwiftUI
 
 // TODO: add licenses
+// TODO: load custom models from models directory
 
 struct SettingsView: View {
-    @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModels = .tiny
+    @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
 
     var body: some View {
         List {
             Section {
                 Picker("Select model", selection: $selectedModel) {
-                    Text("Tiny (default)").tag(WhisperModels.tiny)
-                    Text("Standard").tag(WhisperModels.base)
+                    Text("Tiny (default)").tag(WhisperModel.tiny)
+                    Text("Standard").tag(WhisperModel.base)
                 }
             }
             .pickerStyle(.menu)

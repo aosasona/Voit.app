@@ -2,17 +2,25 @@
 //  ProcessingQueue.swift
 //  Voit
 //
-//  Created by Ayodeji Osasona on 01/10/2023.
+//  Created by Ayodeji Osasona on 05/10/2023.
 //
 
 import Foundation
-import SwiftUI
 
-final class ProcessingQueue: ObservableObject {
-    private var queue: [UUID] = []
+final class ProcessingQueue {
+    private var queue: [Recording] = []
     
-    public func enqueue(uuid: UUID) {
-        self.queue.append(uuid)
+    public func enqueue(recording: Recording) {
+        self.queue.append(recording)
+    }
+    
+    public func pop() {
+        guard self.count() > 0 else { return }
+        self.queue.remove(at: 0)
+    }
+    
+    public func next() -> Recording? {
+        return self.queue.first
     }
     
     public func isEmpty() -> Bool {

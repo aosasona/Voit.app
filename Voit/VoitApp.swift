@@ -10,12 +10,8 @@ import SwiftUI
 
 @main
 struct VoitApp: App {
-    @AppStorage(AppStorageKey.hasCompletedSetup.rawValue) var hasCompletedSetup: Bool = false
-    
     @ObservedObject var router = Router()
-    @ObservedObject var processingQueue = ProcessingQueue()
-    
-    // TODO: make sure at least one model exists before trying to load app (download model during app setup)
+    @ObservedObject var transcriptionEngine = TranscriptionEngine()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -32,7 +28,7 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if !hasCompletedSetup {
+            if !transcriptionEngine.hasInitializedContext {
                 SetupView()
             } else {
                 NavigationStack(path: $router.path) {
@@ -51,9 +47,9 @@ struct VoitApp: App {
                 }
                 .tint(.accentColor)
                 .environmentObject(router)
-                .environmentObject(processingQueue)
             }
         }
+        .environmentObject(transcriptionEngine)
         .modelContainer(sharedModelContainer)
     }
 }

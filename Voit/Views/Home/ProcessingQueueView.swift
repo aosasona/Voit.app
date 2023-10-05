@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProcessingQueueView: View {
-    @EnvironmentObject var processingQueue: ProcessingQueue
+    @EnvironmentObject var processingQueue: TranscriptionEngine
     @State private var showQueue = false
 
     var body: some View {

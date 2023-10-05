@@ -6,21 +6,35 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftWhisper
 
-enum WhisperModels: String, CaseIterable, Identifiable {
-    case tiny
-    case base
-    
-    var id: Self { self }
+protocol ModelProtocol {
+    func getName() -> String
 }
 
-final class ModelsController {
+enum WhisperModel: String, Identifiable, ModelProtocol {
+    case tiny
+    case base
+
+    var id: Self { self }
+
+    func getName() -> String { return self.rawValue }
+}
+
+final class ModelController: ObservableObject {
+    @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
+
     public var modelsDirectory: URL {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return URL(fileURLWithPath: "models", isDirectory: true, relativeTo: documentDirectory)
     }
-    
+
     public var bundledModelsArchive: URL? {
         return Bundle.main.url(forResource: "models", withExtension: "zip")
+    }
+
+    public static func getModelURL(_ model: ModelProtocol) -> URL? {
+        return Bundle.main.url(forResource: model.getName(), withExtension: "bin")
     }
 }
