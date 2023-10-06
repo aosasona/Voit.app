@@ -13,6 +13,7 @@ struct AddRecordingView: View {
     @State private var importing: Bool = false
     @State private var showErrorAlert: Bool = false
     @State private var errorMessage: String = "Failed to import file, please try again. Report this as a bug if this issue persists!"
+    @EnvironmentObject var transcriptionEngine: TranscriptionEngine
 
     var body: some View {
         Button(action: { importing = true }) {
@@ -26,14 +27,15 @@ struct AddRecordingView: View {
                 files.forEach { file in
                     let gotAccess = file.startAccessingSecurityScopedResource()
                     if !gotAccess { return }
-                    guard let modelUrl = ModelController.getModelURL(WhisperModel.tiny) else { return }
-                    let params = WhisperParams(strategy: .greedy)
-                    params.language = .auto
-                    let ctx = Whisper(fromFileURL: modelUrl, withParams: params)
 
                     AudioController.convertToPCMArray(input: file) { result in
                         switch result {
                         case .success(let frames):
+                            guard let ctx = transcriptionEngine.ctx else {
+                                print("Uhm.. where is the context?")
+                                return
+                            }
+                            
                             ctx.transcribe(audioFrames: frames) { transcriptionResult in
                                 switch transcriptionResult {
                                 case .success(let segments):

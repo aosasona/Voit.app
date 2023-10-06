@@ -13,26 +13,42 @@ struct ProcessingQueueView: View {
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
     @State private var showQueue = false
 
+    var statusText: String {
+        return if !transcriptionEngine.hasInitializedContext {
+            "Loading model, please wait..."
+        } else if transcriptionEngine.queueIsEmpty {
+            "Tap '+' to add a new recording "
+        } else {
+            "Processing \(transcriptionEngine.enqueuedItems) recording\(transcriptionEngine.enqueuedItems > 1 ? "s" : "")"
+        }
+    }
+
     var body: some View {
         ZStack {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(transcriptionEngine.queueIsEmpty ? "Tap '+' to add a new recording " : "Processing \(transcriptionEngine.enqueuedItems) recording\(transcriptionEngine.enqueuedItems > 1 ? "s" : "")")
+                    Text(statusText)
                         .font(.subheadline.weight(.medium))
+                        .animation(.easeOut)
 
                     if !transcriptionEngine.queueIsEmpty {
                         Text("Tap to expand")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                            .animation(.spring)
                     }
                 }
 
                 Spacer()
 
-                AddRecordingView()
+                if transcriptionEngine.hasInitializedContext {
+                    AddRecordingView()
+                } else {
+                    ProgressView()
+                }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, transcriptionEngine.queueIsEmpty ? 13 : 16)
+            .padding(.vertical, transcriptionEngine.queueIsEmpty && transcriptionEngine.hasInitializedContext ? 13 : 16)
         }
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))

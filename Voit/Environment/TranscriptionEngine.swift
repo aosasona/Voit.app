@@ -9,15 +9,12 @@ import Foundation
 import SwiftUI
 import SwiftWhisper
 
-enum ContextInitialisationError {
-    case modelNotFound
-}
-
 // TODO: load unprocessed recordings on startup
 final class TranscriptionEngine: ObservableObject {
     @Published var hasInitializedContext = false
     private var queue: ProcessingQueue
-    private var ctx: Whisper? = nil
+    // TODO: revert to private (and maybe add transcription progress?)
+    public var ctx: Whisper? = nil
     private let modelController = ModelController()
     
     
