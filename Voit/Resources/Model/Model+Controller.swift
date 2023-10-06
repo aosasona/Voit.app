@@ -24,7 +24,11 @@ enum WhisperModel: String, Identifiable, ModelProtocol {
 
 final class ModelController: ObservableObject {
     @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
+    @AppStorage(AppStorageKey.selectedLanguage.rawValue) var selectedLanguage: WhisperLanguage = .auto
 
+    public var model: WhisperModel { return selectedModel }
+    public var language: WhisperLanguage { return selectedLanguage }
+    
     public var modelsDirectory: URL {
         let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return URL(fileURLWithPath: "models", isDirectory: true, relativeTo: documentDirectory)
@@ -37,4 +41,5 @@ final class ModelController: ObservableObject {
     public static func getModelURL(_ model: ModelProtocol) -> URL? {
         return Bundle.main.url(forResource: model.getName(), withExtension: "bin")
     }
+    
 }

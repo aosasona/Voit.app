@@ -6,19 +6,27 @@
 //
 
 import SwiftUI
+import SwiftWhisper
 
 // TODO: add licenses
 // TODO: load custom models from models directory
 
 struct SettingsView: View {
     @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
+    @AppStorage(AppStorageKey.selectedLanguage.rawValue) var selectedLanguage: WhisperLanguage = .auto
 
     var body: some View {
         List {
             Section {
-                Picker("Select model", selection: $selectedModel) {
+                Picker("Model", selection: $selectedModel) {
                     Text("Tiny (default)").tag(WhisperModel.tiny)
                     Text("Standard").tag(WhisperModel.base)
+                }
+                
+                Picker("Language", selection: $selectedLanguage) {
+                    ForEach(WhisperLanguage.allCases) { lang in
+                        Text(lang.displayName.capitalized).tag(lang)
+                    }
                 }
             }
             .pickerStyle(.menu)

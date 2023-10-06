@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: show context loading state and prevent importing files during that period ("Reloading model, please wait...")
+
 struct ProcessingQueueView: View {
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
     @State private var showQueue = false
@@ -43,7 +45,7 @@ struct ProcessingQueueView: View {
             if !transcriptionEngine.queueIsEmpty { showQueue = true }
         }
         .fixedSize(horizontal: false, vertical: true)
-        .padding()
+        .padding(.horizontal)
     }
 }
 
