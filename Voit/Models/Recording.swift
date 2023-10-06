@@ -16,19 +16,30 @@ final class Recording {
         case processing
     }
     
-    @Attribute(.unique) var id: UUID
+    @Attribute(.unique) let id: UUID
     var title: String
     var status: Status
-    var transcript: Transcript?
     var createdAt: Date
-    var updatedAt: Date
+    var lastModifiedAt: Date
     
-    init(title: String) {
+    var folder: Folder?
+    
+    @Relationship(deleteRule: .cascade, inverse: \Transcript.recording)
+    var transcript: Transcript?
+    
+    init(title: String, transcript: Transcript? = nil, status: Status = .pending) {
         self.id = UUID()
         self.title = title
-        self.status = .pending
-        self.transcript = nil
-        self.createdAt = Date.now
-        self.updatedAt = Date.now
+        self.status = status
+        self.createdAt = .now
+        self.lastModifiedAt = .now
+        
+        self.transcript = transcript
+    }
+        
+    
+    func update<T>(keyPath: ReferenceWritableKeyPath<Recording, T>, to value: T) {
+        self[keyPath: keyPath] = value
+        lastModifiedAt = .now
     }
 }

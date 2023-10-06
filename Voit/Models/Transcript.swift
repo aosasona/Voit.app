@@ -12,23 +12,25 @@ import SwiftWhisper
 // This has been reimplemented to prevent dependence on the SwiftWhisper package in the future should it need to be removed - although the transformation might indeed be expensive
 @Model
 final class TranscriptSegment {
-    public let id: UUID
-    public let text: String
-    public let startTime: Int
-    public let endTime: Int
+    var text: String
+    var startTime: Int
+    var endTime: Int
     
     init(text: String, startTime: Int, endTime: Int) {
-        self.id = UUID()
+        self.text = text
         self.startTime = startTime
         self.endTime = endTime
-        self.text = text
     }
 }
 
 @Model
 final class Transcript {
-    @Attribute(.unique) var id: UUID
-    @Relationship() private var segments: [TranscriptSegment]
+    @Attribute(.unique) let id: UUID
+    
+    var recording: Recording?
+    
+    @Relationship(deleteRule: .cascade)
+    private var segments: [TranscriptSegment] = []
     
     init(segments: [TranscriptSegment]) {
         self.id = UUID()
