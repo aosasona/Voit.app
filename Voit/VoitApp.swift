@@ -7,15 +7,23 @@
 
 import SwiftData
 import SwiftUI
+import SwiftWhisper
 
 @main
 struct VoitApp: App {
     @ObservedObject var router = Router()
     @ObservedObject var transcriptionEngine = TranscriptionEngine()
 
+    @AppStorage(AppStorageKey.selectedModel.rawValue) var model: WhisperModel = .tiny
+    @AppStorage(AppStorageKey.selectedLanguage.rawValue) var lang: WhisperLanguage = .auto
+
+    @State var showFatalCrashScreen = false
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Recording.self
+            Recording.self,
+            Transcript.self,
+            Folder.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -28,8 +36,8 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if !transcriptionEngine.hasInitializedContext {
-                SetupView()
+            if showFatalCrashScreen {
+                // TODO: fatal crash screen here
             } else {
                 NavigationStack(path: $router.path) {
                     HomeView()
@@ -46,10 +54,24 @@ struct VoitApp: App {
                         }
                 }
                 .tint(.accentColor)
+                .task { loadCtx() }
+                .onChange(of: model) { loadCtx() }
+                .onChange(of: lang) { loadCtx() }
                 .environmentObject(router)
             }
         }
         .environmentObject(transcriptionEngine)
         .modelContainer(sharedModelContainer)
+    }
+
+    func loadCtx() {
+        DispatchQueue.main.async {
+            do {
+                try transcriptionEngine.initContext()
+            } catch {
+                // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
+                showFatalCrashScreen = true
+            }
+        }
     }
 }
