@@ -27,6 +27,7 @@
 		E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */; };
 		E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACAC2AC9CA9400D2DE5C /* Recording.swift */; };
 		E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */; };
+		E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */; };
 		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
 		E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */; };
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
@@ -55,6 +56,7 @@
 		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
 		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
+		E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueListView.swift; sourceTree = "<group>"; };
 		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
 		E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionEngine.swift; sourceTree = "<group>"; };
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */,
 				E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */,
 				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
+				E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
 				E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
+				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
 			);

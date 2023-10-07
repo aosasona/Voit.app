@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-// TODO: show context loading state and prevent importing files during that period ("Reloading model, please wait...")
-
 struct ProcessingQueueView: View {
+    @Namespace private var animation
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
     @State private var showQueue = false
+    @State private var offset = CGSize.zero
 
     var statusText: String {
         return if !transcriptionEngine.hasInitializedContext {
@@ -24,47 +24,55 @@ struct ProcessingQueueView: View {
     }
 
     var body: some View {
-        ZStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(statusText)
-                        .font(.subheadline.weight(.medium))
-                        .animation(.easeOut)
-
-                    if !transcriptionEngine.queueIsEmpty {
-                        Text("Tap to expand")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+        ZStack(alignment: .bottom) {
+            if showQueue {
+                ProcessingQueueListView(showQueue: $showQueue)
+            } else {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(statusText)
+                            .font(.subheadline.weight(.medium))
                             .animation(.spring)
+
+                        if !transcriptionEngine.queueIsEmpty {
+                            Text("Tap to expand")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .animation(.spring)
+                        }
+                    }
+
+                    Spacer()
+
+                    if transcriptionEngine.hasInitializedContext {
+                        AddRecordingView()
+                            .animation(.spring, value: transcriptionEngine.hasInitializedContext)
+                    } else {
+                        ProgressView()
+                            .animation(.spring, value: transcriptionEngine.hasInitializedContext)
+                            .padding([.all], 6)
                     }
                 }
-
-                Spacer()
-
-                if transcriptionEngine.hasInitializedContext {
-                    AddRecordingView()
-                } else {
-                    ProgressView()
-                }
+                .animation(.spring, value: transcriptionEngine.hasInitializedContext)
+                .padding(.horizontal, 16)
+                .padding(.vertical, showQueue ? 6 : transcriptionEngine.queueIsEmpty && transcriptionEngine.hasInitializedContext ? 13 : 16)
+                .matchedGeometryEffect(id: "FullQueue", in: animation)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, transcriptionEngine.queueIsEmpty && transcriptionEngine.hasInitializedContext ? 13 : 16)
         }
+        .zIndex(99)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        .sheet(isPresented: $showQueue) {
-            Text("Sheet")
-                .presentationDetents([.fraction(0.3), .large])
-                .presentationDragIndicator(.automatic)
-        }
         .onTapGesture {
-            if !transcriptionEngine.queueIsEmpty { showQueue = true }
+            withAnimation(.bouncy(duration: 0.5)) {
+                if !transcriptionEngine.queueIsEmpty { showQueue = true }
+            }
         }
-        .fixedSize(horizontal: false, vertical: true)
+        .fixedSize(horizontal: false, vertical: !showQueue)
         .padding(.horizontal)
     }
 }
 
 #Preview {
     ProcessingQueueView()
+        .environmentObject(TranscriptionEngine())
 }
