@@ -18,6 +18,8 @@ struct ProcessingQueueView: View {
     var statusText: String {
         return if !transcriptionEngine.hasInitializedContext {
             "Loading model, please wait..."
+        } else if transcriptionEngine.importingFiles {
+            "Importing files..."
         } else if transcriptionEngine.queueIsEmpty {
             "Tap '+' to add a new recording "
         } else {
@@ -46,13 +48,13 @@ struct ProcessingQueueView: View {
 
                     Spacer()
 
-                    if transcriptionEngine.hasInitializedContext {
-                        AddRecordingView()
-                            .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
-                    } else {
+                    if !transcriptionEngine.hasInitializedContext || transcriptionEngine.importingFiles {
                         ProgressView()
                             .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
                             .padding(.all, 6)
+                    } else {
+                        AddRecordingView()
+                            .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
                     }
                 }
                 .animation(animationValue, value: transcriptionEngine.hasInitializedContext)

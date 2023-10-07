@@ -18,6 +18,7 @@ final class Recording {
     
     @Attribute(.unique) let id: UUID
     var title: String
+    var path: URL /// The URL to the path where the copied file lives (in the user land)
     var status: Status
     var createdAt: Date
     var lastModifiedAt: Date
@@ -27,9 +28,10 @@ final class Recording {
     @Relationship(deleteRule: .cascade, inverse: \Transcript.recording)
     var transcript: Transcript?
     
-    init(title: String, transcript: Transcript? = nil, status: Status = .pending) {
+    init(title: String, path: URL, transcript: Transcript? = nil, status: Status = .pending) {
         self.id = UUID()
         self.title = title
+        self.path = path
         self.status = status
         self.createdAt = .now
         self.lastModifiedAt = .now

@@ -9,6 +9,8 @@ import AudioKit
 import Foundation
 
 final class AudioController {
+    static let fileManager = FileManager()
+
     public static func convertToPCMArray(input: URL, completionHandler: @escaping (Result<[Float], Error>) -> Void) {
         var opts = FormatConverter.Options()
         opts.format = .wav
@@ -51,5 +53,18 @@ final class AudioController {
                 return
             }
         }
+    }
+
+    public static func importFile(_ source: URL) throws -> Recording? {
+        if !FileSystem.exists(.recordings) { try? makeRecordingsDirectory() }
+        guard let copiedFileURL = try? FileSystem.copyFile(from: source, targetDir: .recordings) else { return nil }
+        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL)
+        print(copiedFileURL.absoluteString)
+        print(recording.title)
+        return recording
+    }
+
+    private static func makeRecordingsDirectory() throws {
+        let _ = try? FileSystem.mkdirp(in: .document, path: Directory.recordings.rawValue)
     }
 }

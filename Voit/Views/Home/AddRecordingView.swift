@@ -24,36 +24,7 @@ struct AddRecordingView: View {
         .fileImporter(isPresented: $importing, allowedContentTypes: [.audio], allowsMultipleSelection: true) { result in
             switch result {
             case .success(let files):
-                files.forEach { file in
-                    let gotAccess = file.startAccessingSecurityScopedResource()
-                    if !gotAccess { return }
-
-                    AudioController.convertToPCMArray(input: file) { result in
-                        switch result {
-                        case .success(let frames):
-                            guard let ctx = transcriptionEngine.ctx else {
-                                print("Uhm.. where is the context?")
-                                return
-                            }
-                            
-                            ctx.transcribe(audioFrames: frames) { transcriptionResult in
-                                switch transcriptionResult {
-                                case .success(let segments):
-                                    print(segments)
-                                    return
-                                case .failure(let e):
-                                    print(e.localizedDescription)
-                                    showErrorAlert = true
-                                    errorMessage = "Transcription failed, please try again"
-                                }
-                            }
-                        case .failure(let e):
-                            print(e.localizedDescription)
-                            showErrorAlert = true
-                            errorMessage = "Unable to convert audio to required format"
-                        }
-                    }
-                }
+                handleMultipleImports(files)
             case .failure(let error):
                 showErrorAlert = true
                 print(error.localizedDescription)
@@ -63,6 +34,46 @@ struct AddRecordingView: View {
             Button("OK", role: .cancel, action: {})
         } message: {
             Text(errorMessage)
+        }
+    }
+
+    private func handleMultipleImports(_ files: [URL]) {
+        transcriptionEngine.isImportingFiles()
+
+        DispatchQueue.global().async {
+            files.forEach { file in
+                if !file.startAccessingSecurityScopedResource() {
+                    triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
+                    return
+                }
+                defer { file.stopAccessingSecurityScopedResource() }
+
+                do {
+                    guard let recording = try AudioController.importFile(file) else {
+                        triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
+                        return
+                    }
+                    DispatchQueue.main.async { transcriptionEngine.enqueue(recording) }
+                } catch FileSystemError.failedToGetDocumentDir {
+                    // if this ever happens, just crash the app and make the user launch it again
+                    fatalError("Failed to get document directory: this should have never happened")
+                } catch {
+                    triggerError("Failed to import file: \(file.lastPathComponent)", fromExternalQueue: true)
+                }
+            }
+
+            DispatchQueue.main.async { transcriptionEngine.hasImportedFiles() }
+        }
+    }
+
+    private func triggerError(_ message: String) {
+        showErrorAlert = true
+        errorMessage = message
+    }
+
+    private func triggerError(_ message: String, fromExternalQueue: Bool = false) {
+        DispatchQueue.main.async {
+            triggerError(message)
         }
     }
 }

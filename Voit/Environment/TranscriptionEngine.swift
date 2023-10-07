@@ -12,9 +12,9 @@ import SwiftWhisper
 // TODO: load unprocessed recordings on startup
 final class TranscriptionEngine: ObservableObject {
     @Published var hasInitializedContext = false
+    @Published var importingFiles = false
     private var queue: ProcessingQueue
-    // TODO: revert to private (and maybe add transcription progress?)
-    public var ctx: Whisper? = nil
+    private var ctx: Whisper? = nil
     private let modelController = ModelController()
     
     
@@ -24,6 +24,9 @@ final class TranscriptionEngine: ObservableObject {
     
     public var enqueuedItems: Int { return self.queue.count() }
     public var queueIsEmpty: Bool { return self.queue.count() <= 0 }
+    
+    func isImportingFiles() { importingFiles = true }
+    func hasImportedFiles() { importingFiles = false }
     
     func initContext() throws {
         hasInitializedContext = false
@@ -35,4 +38,8 @@ final class TranscriptionEngine: ObservableObject {
     }
     
     func loadUnprocessedRecordings() throws {}
+    
+    func enqueue(_ recording: Recording) {
+        self.queue.enqueue(recording)
+    }
 }

@@ -10,7 +10,7 @@ import Foundation
 final class ProcessingQueue {
     private var queue: [Recording] = []
     
-    public func enqueue(recording: Recording) {
+    public func enqueue(_ recording: Recording) {
         self.queue.append(recording)
     }
     
