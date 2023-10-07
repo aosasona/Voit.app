@@ -9,6 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.modelContext) var context
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             NavigationSplitView {
@@ -19,6 +21,12 @@ struct HomeView: View {
             ProcessingQueueView()
         }
         .edgesIgnoringSafeArea(.bottom)
+    }
+    
+    func loadUnprocessedRecordings() {
+//        let descriptor = FetchDescriptor(
+//            predicate: #Predicate<Recording> 
+//        )
     }
 }
 

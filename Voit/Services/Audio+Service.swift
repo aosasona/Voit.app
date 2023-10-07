@@ -59,8 +59,6 @@ final class AudioService {
         if !FileSystem.exists(.recordings) { try? makeRecordingsDirectory() }
         guard let copiedFileURL = try? FileSystem.copyFile(from: source, targetDir: .recordings) else { return nil }
         let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL)
-        print(copiedFileURL.absoluteString)
-        print(recording.title)
         return recording
     }
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C652AD1A87C00032246 /* FileSystem.swift */; };
 		E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C692AD1CA7000032246 /* FoldersListView.swift */; };
+		E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C6C2AD2042100032246 /* Array+Extension.swift */; };
 		E27DDFC22ACE313400E5C8D6 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */; };
 		E27DDFE62ACF458300E5C8D6 /* base.bin in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE22ACF457C00E5C8D6 /* base.bin */; };
 		E27DDFE72ACF458300E5C8D6 /* tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */; };
@@ -35,11 +36,14 @@
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
 		E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */; };
 		E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */; };
+		E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FDBC712AD2123400577C58 /* RecordingView.swift */; };
+		E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FDBC732AD2156800577C58 /* RecordingListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E23E0C652AD1A87C00032246 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		E23E0C692AD1CA7000032246 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
+		E23E0C6C2AD2042100032246 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		E27DDFE22ACF457C00E5C8D6 /* base.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = base.bin; sourceTree = "<group>"; };
 		E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFE42ACF458100E5C8D6 /* tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = tiny.bin; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
 		E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Service.swift"; sourceTree = "<group>"; };
 		E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		E2FDBC712AD2123400577C58 /* RecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView.swift; sourceTree = "<group>"; };
+		E2FDBC732AD2156800577C58 /* RecordingListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,14 @@
 				E23E0C692AD1CA7000032246 /* FoldersListView.swift */,
 			);
 			path = Folders;
+			sourceTree = "<group>";
+		};
+		E23E0C6B2AD2041000032246 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E23E0C6C2AD2042100032246 /* Array+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E27DDFBF2ACE261100E5C8D6 /* Utils */ = {
@@ -154,6 +168,7 @@
 		E29BAC8C2AC9A66400D2DE5C /* Voit */ = {
 			isa = PBXGroup;
 			children = (
+				E23E0C6B2AD2041000032246 /* Extensions */,
 				E27DDFF62ACF60D200E5C8D6 /* Environment */,
 				E27DDFED2ACF4A8300E5C8D6 /* Services */,
 				E27DDFEA2ACF458800E5C8D6 /* WhisperModels */,
@@ -182,6 +197,7 @@
 		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E2FDBC702AD2121800577C58 /* Recordings */,
 				E23E0C682AD1CA5C00032246 /* Folders */,
 				E2DC9B552ACB95B3008135E3 /* Settings */,
 				E2DC9B542ACB9599008135E3 /* Home */,
@@ -206,7 +222,6 @@
 				E29BACA02AC9A96700D2DE5C /* HomeView.swift */,
 				E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */,
 				E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */,
-				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
 				E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */,
 			);
 			path = Home;
@@ -226,6 +241,16 @@
 				E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		E2FDBC702AD2121800577C58 /* Recordings */ = {
+			isa = PBXGroup;
+			children = (
+				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
+				E2FDBC712AD2123400577C58 /* RecordingView.swift */,
+				E2FDBC732AD2156800577C58 /* RecordingListItem.swift */,
+			);
+			path = Recordings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,11 +348,14 @@
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
 				E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */,
+				E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */,
 				E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
+				E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */,
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
 				E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
+				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,

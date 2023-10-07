@@ -9,18 +9,31 @@ import SwiftData
 import SwiftUI
 
 struct RecordingsListView: View {
+    @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var router: Router
-    @Query var recordings: [Recording]
+    @Query(sort: \Recording.createdAt, order: .reverse, animation: .easeOut) var allRecordings: [Recording]
 
+    @State private var selectedRecordings = Set<Recording>()
     @State private var searchQuery: String = ""
-    var searchResults: [Recording] {
-        guard searchQuery.isEmpty == false else { return recordings }
-        return recordings.filter { $0.title.contains(searchQuery) }
+    var recordings: [Recording] {
+        guard searchQuery.isEmpty == false else { return allRecordings }
+        // TODO: make transcripts searchable
+        return allRecordings.filter { recording in
+            recording.title.lowercased().contains(searchQuery.lowercased())
+        }
     }
 
     var body: some View {
-        List(recordings) { _ in
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(recordings, id: \.self) { recording in
+                RecordingListItem(recording: recording)
+            }
+            .onDelete(perform: { indexSet in
+                for index in indexSet {
+                    guard let recording = recordings.get(index: index) else { continue }
+                    modelContext.delete(recording)
+                }
+            })
         }
         .searchable(text: $searchQuery)
         .toolbar {
@@ -43,7 +56,7 @@ struct RecordingsListView: View {
             }
         }
         .overlay {
-            if !searchQuery.isEmpty, searchResults.isEmpty {
+            if !searchQuery.isEmpty, recordings.isEmpty {
                 ContentUnavailableView.search
             }
         }

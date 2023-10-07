@@ -37,12 +37,19 @@ struct VoitApp: App {
     var body: some Scene {
         WindowGroup {
             if showFatalCrashScreen {
-                // TODO: fatal crash screen here
+                VStack {
+                    Text("Something went horribly wrong, please restart the app!")
+                }
+                .foregroundStyle(.white)
+                .background(.red)
+                .edgesIgnoringSafeArea(.all)
             } else {
                 NavigationStack(path: $router.path) {
                     HomeView()
                         .navigationDestination(for: Router.Screen.self) { screen in
                             switch screen {
+                            case .recording(let uuid):
+                                RecordingView(uuid: uuid)
                             case .folders:
                                 FoldersListView()
                             case .settings(let page):
@@ -71,6 +78,7 @@ struct VoitApp: App {
             do {
                 try transcriptionEngine.initContext()
             } catch {
+                print(error.localizedDescription)
                 DispatchQueue.main.sync {
                     // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
                     showFatalCrashScreen = true

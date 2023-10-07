@@ -14,6 +14,12 @@ final class ProcessingQueue {
         self.queue.append(recording)
     }
     
+    public func enqueueMultiple(_ recordings: [Recording]) {
+        recordings.forEach { recording in
+            self.enqueue(recording)
+        }
+    }
+    
     public func pop() {
         guard self.count() > 0 else { return }
         self.queue.remove(at: 0)

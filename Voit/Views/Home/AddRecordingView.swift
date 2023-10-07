@@ -10,10 +10,12 @@ import SwiftUI
 import SwiftWhisper
 
 struct AddRecordingView: View {
+    @Environment(\.modelContext) private var context
+    @EnvironmentObject var transcriptionEngine: TranscriptionEngine
+    
     @State private var importing: Bool = false
     @State private var showErrorAlert: Bool = false
     @State private var errorMessage: String = "Failed to import file, please try again. Report this as a bug if this issue persists!"
-    @EnvironmentObject var transcriptionEngine: TranscriptionEngine
 
     var body: some View {
         Button(action: { importing = true }) {
@@ -53,7 +55,10 @@ struct AddRecordingView: View {
                         triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
                         return
                     }
-                    DispatchQueue.main.async { transcriptionEngine.enqueue(recording) }
+                    DispatchQueue.main.async {
+                        transcriptionEngine.enqueue(recording)
+                        context.insert(recording)
+                    }
                 } catch FileSystemError.failedToGetDocumentDir {
                     // if this ever happens, just crash the app and make the user launch it again
                     fatalError("Failed to get document directory: this should have never happened")
