@@ -13,6 +13,8 @@ struct ProcessingQueueView: View {
     @State private var showQueue = false
     @State private var offset = CGSize.zero
 
+    private let animationValue = Animation.bouncy(duration: 0.4)
+
     var statusText: String {
         return if !transcriptionEngine.hasInitializedContext {
             "Loading model, please wait..."
@@ -32,13 +34,13 @@ struct ProcessingQueueView: View {
                     VStack(alignment: .leading) {
                         Text(statusText)
                             .font(.subheadline.weight(.medium))
-                            .animation(.spring)
+                            .animation(animationValue)
 
                         if !transcriptionEngine.queueIsEmpty {
                             Text("Tap to expand")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                                .animation(.spring)
+                                .animation(animationValue)
                         }
                     }
 
@@ -46,14 +48,14 @@ struct ProcessingQueueView: View {
 
                     if transcriptionEngine.hasInitializedContext {
                         AddRecordingView()
-                            .animation(.spring, value: transcriptionEngine.hasInitializedContext)
+                            .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
                     } else {
                         ProgressView()
-                            .animation(.spring, value: transcriptionEngine.hasInitializedContext)
-                            .padding([.all], 6)
+                            .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
+                            .padding(.all, 6)
                     }
                 }
-                .animation(.spring, value: transcriptionEngine.hasInitializedContext)
+                .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
                 .padding(.horizontal, 16)
                 .padding(.vertical, showQueue ? 6 : transcriptionEngine.queueIsEmpty && transcriptionEngine.hasInitializedContext ? 13 : 16)
                 .matchedGeometryEffect(id: "FullQueue", in: animation)
@@ -63,12 +65,14 @@ struct ProcessingQueueView: View {
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
         .onTapGesture {
-            withAnimation(.bouncy(duration: 0.5)) {
+            withAnimation(.bouncy(duration: 0.4)) {
                 if !transcriptionEngine.queueIsEmpty { showQueue = true }
             }
         }
         .fixedSize(horizontal: false, vertical: !showQueue)
-        .padding(.horizontal)
+        .padding(.horizontal, showQueue ? 0 : 20.0)
+        .padding(.bottom, showQueue ? 0 : 20.0)
+        .safeAreaPadding(showQueue ? .top : .bottom)
     }
 }
 

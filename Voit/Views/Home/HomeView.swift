@@ -20,7 +20,7 @@ struct HomeView: View {
 
             ProcessingQueueView()
         }
-        .safeAreaPadding(.bottom, 10.0)
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 

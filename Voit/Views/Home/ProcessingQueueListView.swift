@@ -10,7 +10,7 @@ import SwiftUI
 struct ProcessingQueueListView: View {
     @Namespace private var animation
     @Binding var showQueue: Bool
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -25,12 +25,13 @@ struct ProcessingQueueListView: View {
             }
             .padding(12.0)
 
-            ScrollView {
+            List {
                 Text("Oh hey")
+                    .background(.clear)
             }
-            .padding(.horizontal)
+            .scrollContentBackground(.hidden)
         }
-        .frame(maxWidth: .infinity, maxHeight: 500)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .matchedGeometryEffect(id: "FullQueue", in: animation)
     }
 }
