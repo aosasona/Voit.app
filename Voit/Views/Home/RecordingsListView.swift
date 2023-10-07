@@ -24,9 +24,23 @@ struct RecordingsListView: View {
         }
         .searchable(text: $searchQuery)
         .toolbar {
-            Button(action: { router.navigate(to: .settings(.root)) }, label: {
-                Label("Go to settings page", systemImage: "gear")
-            })
+            ToolbarItem {
+                Button(action: { router.navigate(to: .folders) }) {
+                    Label("Go to folders", systemImage: "folder")
+                }
+            }
+
+            ToolbarItem {
+                Menu {
+                    EditButton()
+                    // TODO: add picker for sorting here
+                    Button(action: { router.navigate(to: .settings(.root)) }, label: {
+                        Label("Settings", systemImage: "gear")
+                    })
+                } label: {
+                    Label("Show options", systemImage: "ellipsis.circle")
+                }
+            }
         }
         .overlay {
             if !searchQuery.isEmpty, searchResults.isEmpty {
@@ -38,4 +52,5 @@ struct RecordingsListView: View {
 
 #Preview {
     RecordingsListView()
+        .environmentObject(Router())
 }

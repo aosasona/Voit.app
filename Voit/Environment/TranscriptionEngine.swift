@@ -15,7 +15,7 @@ final class TranscriptionEngine: ObservableObject {
     @Published var importingFiles = false
     private var queue: ProcessingQueue
     private var ctx: Whisper? = nil
-    private let modelController = ModelController()
+    private let modelController = ModelService()
     
     
     init() {
@@ -29,12 +29,12 @@ final class TranscriptionEngine: ObservableObject {
     func hasImportedFiles() { importingFiles = false }
     
     func initContext() throws {
-        hasInitializedContext = false
+        DispatchQueue.main.sync { hasInitializedContext = false }
         let params = WhisperParams(strategy: .greedy)
         params.language = .auto
-        guard let modelUrl = ModelController.getModelURL(modelController.model) else { return }
+        guard let modelUrl = ModelService.getModelURL(modelController.model) else { return }
         self.ctx = Whisper(fromFileURL: modelUrl, withParams: params)
-        hasInitializedContext = true
+        DispatchQueue.main.sync { hasInitializedContext = true }
     }
     
     func loadUnprocessedRecordings() throws {}

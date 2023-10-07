@@ -17,7 +17,7 @@ struct SettingsView: View {
 
     var body: some View {
         List {
-            Section(footer: Text("Changes here may cause the app to be unresponsive for very few seconds, this is normal as the app needs to reload the model to apply the changes (this may be improved in the future).")) {
+            Section {
                 Picker("Model", selection: $selectedModel) {
                     Text("Tiny (default)").tag(WhisperModel.tiny)
                     Text("Standard").tag(WhisperModel.base)

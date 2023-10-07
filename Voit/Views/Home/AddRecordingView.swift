@@ -49,7 +49,7 @@ struct AddRecordingView: View {
                 defer { file.stopAccessingSecurityScopedResource() }
 
                 do {
-                    guard let recording = try AudioController.importFile(file) else {
+                    guard let recording = try AudioService.importFile(file) else {
                         triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
                         return
                     }

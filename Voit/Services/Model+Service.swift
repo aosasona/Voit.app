@@ -1,5 +1,5 @@
 //
-//  WhisperModelController.swift
+//  ModelService.swift
 //  Voit
 //
 //  Created by Ayodeji Osasona on 04/10/2023.
@@ -22,7 +22,7 @@ enum WhisperModel: String, Identifiable, ModelProtocol {
     func getName() -> String { return self.rawValue }
 }
 
-final class ModelController: ObservableObject {
+final class ModelService: ObservableObject {
     @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
     @AppStorage(AppStorageKey.selectedLanguage.rawValue) var selectedLanguage: WhisperLanguage = .auto
 

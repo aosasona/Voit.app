@@ -43,6 +43,8 @@ struct VoitApp: App {
                     HomeView()
                         .navigationDestination(for: Router.Screen.self) { screen in
                             switch screen {
+                            case .folders:
+                                FoldersListView()
                             case .settings(let page):
                                 switch page {
                                 case .root:
@@ -65,12 +67,14 @@ struct VoitApp: App {
     }
 
     func loadCtx() {
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             do {
                 try transcriptionEngine.initContext()
             } catch {
-                // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
-                showFatalCrashScreen = true
+                DispatchQueue.main.sync {
+                    // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
+                    showFatalCrashScreen = true
+                }
             }
         }
     }

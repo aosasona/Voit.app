@@ -40,7 +40,7 @@ final class FileSystem {
             return documentDirectory
         case .recordings:
             guard let dir = documentDirectory else { return nil }
-            return dir.appending(path: "recordings")
+            return dir.appending(path: Directory.recordings.rawValue)
         }
     }
     

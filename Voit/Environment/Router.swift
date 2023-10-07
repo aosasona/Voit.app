@@ -14,6 +14,7 @@ final class Router: ObservableObject {
 
     public enum Screen: Codable, Hashable {
         case home
+        case folders
         case settings(Settings)
     }
 

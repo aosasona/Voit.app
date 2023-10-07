@@ -1,5 +1,5 @@
 //
-//  AudioController.swift
+//  AudioService.swift
 //  Voit
 //
 //  Created by Ayodeji Osasona on 05/10/2023.
@@ -8,7 +8,7 @@
 import AudioKit
 import Foundation
 
-final class AudioController {
+final class AudioService {
     static let fileManager = FileManager()
 
     public static func convertToPCMArray(input: URL, completionHandler: @escaping (Result<[Float], Error>) -> Void) {

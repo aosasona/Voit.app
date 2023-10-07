@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C652AD1A87C00032246 /* FileSystem.swift */; };
+		E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C692AD1CA7000032246 /* FoldersListView.swift */; };
 		E27DDFC22ACE313400E5C8D6 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */; };
 		E27DDFE62ACF458300E5C8D6 /* base.bin in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE22ACF457C00E5C8D6 /* base.bin */; };
 		E27DDFE72ACF458300E5C8D6 /* tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */; };
 		E27DDFE82ACF458300E5C8D6 /* tiny.bin in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE42ACF458100E5C8D6 /* tiny.bin */; };
 		E27DDFE92ACF458300E5C8D6 /* base-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE52ACF458300E5C8D6 /* base-encoder.mlmodelc */; };
-		E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Controller.swift */; };
+		E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */; };
 		E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF12ACF4C4200E5C8D6 /* AudioKit */; };
 		E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */; };
 		E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */; };
@@ -32,17 +33,18 @@
 		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
 		E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */; };
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
-		E2DC9B5B2ACCDE2B008135E3 /* Model+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* Model+Controller.swift */; };
+		E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */; };
 		E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E23E0C652AD1A87C00032246 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
+		E23E0C692AD1CA7000032246 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
 		E27DDFE22ACF457C00E5C8D6 /* base.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = base.bin; sourceTree = "<group>"; };
 		E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFE42ACF458100E5C8D6 /* tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = tiny.bin; sourceTree = "<group>"; };
 		E27DDFE52ACF458300E5C8D6 /* base-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "base-encoder.mlmodelc"; sourceTree = "<group>"; };
-		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Controller.swift"; sourceTree = "<group>"; };
+		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Service.swift"; sourceTree = "<group>"; };
 		E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
@@ -62,7 +64,7 @@
 		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
 		E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionEngine.swift; sourceTree = "<group>"; };
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
-		E2DC9B5A2ACCDE2B008135E3 /* Model+Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Controller.swift"; sourceTree = "<group>"; };
+		E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Service.swift"; sourceTree = "<group>"; };
 		E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E23E0C682AD1CA5C00032246 /* Folders */ = {
+			isa = PBXGroup;
+			children = (
+				E23E0C692AD1CA7000032246 /* FoldersListView.swift */,
+			);
+			path = Folders;
+			sourceTree = "<group>";
+		};
 		E27DDFBF2ACE261100E5C8D6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,29 +117,13 @@
 			name = WhisperModels;
 			sourceTree = "<group>";
 		};
-		E27DDFED2ACF4A8300E5C8D6 /* Resources */ = {
+		E27DDFED2ACF4A8300E5C8D6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E27DDFEF2ACF4A9E00E5C8D6 /* Audio */,
-				E27DDFEE2ACF4A9500E5C8D6 /* Model */,
+				E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */,
+				E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */,
 			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		E27DDFEE2ACF4A9500E5C8D6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				E2DC9B5A2ACCDE2B008135E3 /* Model+Controller.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E27DDFEF2ACF4A9E00E5C8D6 /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Controller.swift */,
-			);
-			path = Audio;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E27DDFF62ACF60D200E5C8D6 /* Environment */ = {
@@ -161,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				E27DDFF62ACF60D200E5C8D6 /* Environment */,
-				E27DDFED2ACF4A8300E5C8D6 /* Resources */,
+				E27DDFED2ACF4A8300E5C8D6 /* Services */,
 				E27DDFEA2ACF458800E5C8D6 /* WhisperModels */,
 				E27DDFD62ACEF5C400E5C8D6 /* Assets */,
 				E27DDFBF2ACE261100E5C8D6 /* Utils */,
@@ -188,6 +182,7 @@
 		E29BAC9F2AC9A91A00D2DE5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E23E0C682AD1CA5C00032246 /* Folders */,
 				E2DC9B552ACB95B3008135E3 /* Settings */,
 				E2DC9B542ACB9599008135E3 /* Home */,
 			);
@@ -321,15 +316,16 @@
 				E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */,
 				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
 				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
-				E2DC9B5B2ACCDE2B008135E3 /* Model+Controller.swift in Sources */,
+				E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */,
 				E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */,
 				E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */,
-				E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Controller.swift in Sources */,
+				E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Service.swift in Sources */,
 				E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */,
 				E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */,
 				E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */,
 				E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
+				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
 				E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,

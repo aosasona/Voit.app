@@ -14,9 +14,7 @@ struct HomeView: View {
             NavigationSplitView {
                 RecordingsListView()
                     .navigationTitle("All recordings")
-            } detail: {
-                Text("Hey")
-            }
+            } detail: {}
 
             ProcessingQueueView()
         }
