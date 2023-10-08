@@ -63,6 +63,6 @@ final class AudioService {
     }
 
     private static func makeRecordingsDirectory() throws {
-        let _ = try? FileSystem.mkdirp(in: .document, path: Directory.recordings.rawValue)
+        let _ = try? FileSystem.mkdirp(in: .document, path: FileSystem.Directory.recordings.rawValue)
     }
 }

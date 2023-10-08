@@ -13,13 +13,14 @@ final class Recording {
     enum Status: String, Codable {
         case pending
         case failed
+        case processing
         case processed
     }
     
     @Attribute(.unique) let id: UUID
     var title: String
     /// The URL to the path where the copied file lives (in the user land)
-    var path: URL
+    var filename: String
     var status: Status
     var locked: Bool = false
     var createdAt: Date
@@ -30,10 +31,15 @@ final class Recording {
     @Relationship(deleteRule: .cascade, inverse: \Transcript.recording)
     var transcript: Transcript?
     
+    var path: URL? {
+        guard let userDirectory = FileSystem.documentDirectory else { return nil }
+        return userDirectory.appending(path: FileSystem.Directory.recordings.rawValue).appending(path: self.filename)
+    }
+    
     init(title: String, path: URL, folder: Folder? = nil, transcript: Transcript? = nil, locked: Bool = false, status: Status = .pending) {
         self.id = UUID()
         self.title = title
-        self.path = path
+        self.filename = path.lastPathComponent
         self.locked = locked
         self.status = status
         self.createdAt = .now

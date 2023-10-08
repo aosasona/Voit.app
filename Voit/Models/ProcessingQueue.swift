@@ -25,6 +25,10 @@ final class ProcessingQueue {
         self.queue.remove(at: 0)
     }
     
+    public func pop(_ recording: Recording) {
+        self.queue.removeAll(where: { $0.id == recording.id })
+    }
+    
     public func next() -> Recording? {
         return self.queue.first
     }

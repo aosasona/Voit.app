@@ -60,7 +60,7 @@ struct AddRecordingView: View {
                         transcriptionEngine.enqueue(recording)
                         context.insert(recording)
                     }
-                } catch FileSystemError.failedToGetDocumentDir {
+                } catch FileSystem.FSError.failedToGetDocumentDir {
                     // if this ever happens, just crash the app and make the user launch it again
                     fatalError("Failed to get document directory: this should have never happened")
                 } catch {

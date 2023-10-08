@@ -39,7 +39,6 @@ struct RecordingsListView: View {
 
             ToolbarItem {
                 Menu {
-                    EditButton()
                     // TODO: add picker for sorting here
                     Button(action: { router.navigate(to: .settings(.root)) }, label: {
                         Label("Settings", systemImage: "gear")

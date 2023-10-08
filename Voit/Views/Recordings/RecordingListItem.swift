@@ -10,6 +10,7 @@ import SwiftUI
 struct RecordingListItem: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var router: Router
+    @EnvironmentObject private var transcriptionEngine: TranscriptionEngine
     @State private var isEditing: Bool = false
     @State var recording: Recording
     @State var title: String = ""
@@ -18,10 +19,12 @@ struct RecordingListItem: View {
         return switch recording.status {
         case .pending:
             Color.yellow
-        case .failed:
-            Color.red
+        case .processing:
+            Color.accent
         case .processed:
             Color.clear
+        case .failed:
+            Color.red
         }
     }
 
@@ -29,6 +32,8 @@ struct RecordingListItem: View {
         return switch recording.status {
         case .pending:
             Color.black
+        case .processing:
+            Color.white
         case .failed:
             Color.white
         case .processed:
@@ -84,13 +89,20 @@ struct RecordingListItem: View {
     }
 
     private func deleteRecording() {
+        // Prevent deletion of a recording that is already being processed
+        if recording.status == .processing { return }
+
+        transcriptionEngine.pop(recording)
+        defer {
+            modelContext.delete(recording)
+        }
+
         do {
-            try FileSystem.deleteFile(path: recording.path)
-            print(recording.path)
+            guard let path = recording.path else { return }
+            try FileSystem.deleteFile(path: path)
         } catch {
             print(error.localizedDescription)
         }
-        modelContext.delete(recording)
     }
 }
 

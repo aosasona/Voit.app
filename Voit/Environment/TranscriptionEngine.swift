@@ -11,6 +11,7 @@ import SwiftUI
 import SwiftWhisper
 
 // TODO: load unprocessed recordings on startup
+// TODO: fix floating queue status being out of sync with elements
 final class TranscriptionEngine: ObservableObject {
     @Published var hasInitializedContext = false
     @Published var importingFiles = false
@@ -31,6 +32,7 @@ final class TranscriptionEngine: ObservableObject {
     func hasImportedFiles() { self.importingFiles = false }
     
     func enqueue(_ recording: Recording) { self.queue.enqueue(recording) }
+    func pop(_ recording: Recording) { self.queue.pop(recording) }
     
     public func initContext() throws {
         DispatchQueue.main.sync { self.hasInitializedContext = false }
