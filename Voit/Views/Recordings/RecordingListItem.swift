@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RecordingListItem: View {
     @Environment(\.modelContext) var modelContext
-    @EnvironmentObject private var router: Router
     @EnvironmentObject private var transcriptionEngine: TranscriptionEngine
+
     @State private var isEditing: Bool = false
     @State var recording: Recording
     @State var title: String = ""
@@ -42,25 +42,24 @@ struct RecordingListItem: View {
     }
 
     var body: some View {
-        Button(action: { router.navigate(to: .recording(recording.id)) }) {
-            VStack(alignment: .leading) {
-                Text(recording.title)
+        VStack {
+            Text(recording.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-                HStack {
-                    Text(recording.status.rawValue.uppercased())
-                        .padding(.vertical, 1.5)
-                        .padding(.horizontal, 4.0)
-                        .font(.system(size: 9.0, weight: .medium))
-                        .foregroundStyle(statusTextColor)
-                        .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
+            HStack {
+                Text(recording.status.rawValue.uppercased())
+                    .padding(.vertical, 1.5)
+                    .padding(.horizontal, 4.0)
+                    .font(.system(size: 9.0, weight: .medium))
+                    .foregroundStyle(statusTextColor)
+                    .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
 
-                    Text(recording.createdAt.formatted())
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.top, 1.0)
-                }
+                Text(recording.createdAt.formatted())
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 1.0)
             }
-            .padding(.vertical, 3.0)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .task { title = recording.title }
         .contextMenu {
@@ -81,7 +80,6 @@ struct RecordingListItem: View {
                 Label("Move to...", systemImage: "folder.fill")
             }.tint(.indigo)
         }
-        .buttonStyle(RecordingListItemStyle())
     }
 
     private func save() {
@@ -91,11 +89,8 @@ struct RecordingListItem: View {
     private func deleteRecording() {
         // Prevent deletion of a recording that is already being processed
         if recording.status == .processing { return }
-
-        transcriptionEngine.pop(recording)
-        defer {
-            modelContext.delete(recording)
-        }
+        transcriptionEngine.dequeue(recording)
+        defer { modelContext.delete(recording) }
 
         do {
             guard let path = recording.path else { return }
@@ -111,7 +106,7 @@ struct RecordingListItemStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .opacity(isEnabled ? 1.0 : 0.5)
+            .opacity(isEnabled && !configuration.isPressed ? 1.0 : 0.5)
     }
 }
 

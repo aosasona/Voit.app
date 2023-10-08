@@ -20,10 +20,10 @@ struct ProcessingQueueView: View {
             "Loading model, please wait..."
         } else if transcriptionEngine.importingFiles {
             "Importing files..."
-        } else if transcriptionEngine.queueIsEmpty {
+        } else if transcriptionEngine.queue.count <= 0 {
             "Tap '+' to add a new recording "
         } else {
-            "Processing \(transcriptionEngine.enqueuedItems) recording\(transcriptionEngine.enqueuedItems > 1 ? "s" : "")"
+            "Processing \(transcriptionEngine.queue.count) recording\(transcriptionEngine.queue.count > 1 ? "s" : "")"
         }
     }
 
@@ -38,7 +38,7 @@ struct ProcessingQueueView: View {
                             .font(.subheadline.weight(.medium))
                             .animation(animationValue)
 
-                        if !transcriptionEngine.queueIsEmpty {
+                        if transcriptionEngine.queue.count > 0 {
                             Text("Tap to expand")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -59,7 +59,7 @@ struct ProcessingQueueView: View {
                 }
                 .animation(animationValue, value: transcriptionEngine.hasInitializedContext)
                 .padding(.horizontal, 16)
-                .padding(.vertical, showQueue ? 6 : transcriptionEngine.queueIsEmpty && transcriptionEngine.hasInitializedContext ? 13 : 16)
+                .padding(.vertical, showQueue ? 6 : transcriptionEngine.queue.count <= 0 && transcriptionEngine.hasInitializedContext ? 13 : 16)
                 .matchedGeometryEffect(id: "FullQueue", in: animation)
             }
         }
@@ -68,7 +68,7 @@ struct ProcessingQueueView: View {
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
         .onTapGesture {
             withAnimation(.bouncy(duration: 0.4)) {
-                if !transcriptionEngine.queueIsEmpty { showQueue = true }
+                if transcriptionEngine.queue.count > 0 { showQueue = true }
             }
         }
         .fixedSize(horizontal: false, vertical: !showQueue)

@@ -25,7 +25,6 @@
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
 		E29BACA12AC9A96700D2DE5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA02AC9A96700D2DE5C /* HomeView.swift */; };
-		E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA22AC9BE6300D2DE5C /* Router.swift */; };
 		E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */; };
 		E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */; };
 		E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACAC2AC9CA9400D2DE5C /* Recording.swift */; };
@@ -59,7 +58,6 @@
 		E29BAC982AC9A66600D2DE5C /* Voit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Voit.entitlements; sourceTree = "<group>"; };
 		E29BAC992AC9A66600D2DE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E29BACA02AC9A96700D2DE5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		E29BACA22AC9BE6300D2DE5C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
 		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 		E27DDFF62ACF60D200E5C8D6 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				E29BACA22AC9BE6300D2DE5C /* Router.swift */,
 				E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */,
 			);
 			path = Environment;
@@ -340,7 +337,6 @@
 				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
 				E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */,
 				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
-				E29BACA32AC9BE6300D2DE5C /* Router.swift in Sources */,
 				E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */,
 				E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */,
 				E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */,

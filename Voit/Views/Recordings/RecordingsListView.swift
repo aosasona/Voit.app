@@ -10,11 +10,10 @@ import SwiftUI
 
 struct RecordingsListView: View {
     @Environment(\.modelContext) var modelContext
-    @EnvironmentObject private var router: Router
-    @Query(sort: \Recording.createdAt, order: .reverse, animation: .easeOut) var allRecordings: [Recording]
 
-    @State private var selectedRecordings = Set<Recording>()
+    @Query(sort: \Recording.createdAt, order: .reverse, animation: .easeOut) var allRecordings: [Recording]
     @State private var searchQuery: String = ""
+
     var recordings: [Recording] {
         guard searchQuery.isEmpty == false else { return allRecordings }
         // TODO: make transcripts searchable
@@ -26,23 +25,21 @@ struct RecordingsListView: View {
     var body: some View {
         List {
             ForEach(recordings, id: \.self) { recording in
-                RecordingListItem(recording: recording)
+                NavigationLink {
+                    RecordingView(uuid: recording.id)
+                } label: {
+                    RecordingListItem(recording: recording)
+                }
             }
         }
         .searchable(text: $searchQuery)
         .toolbar {
-            ToolbarItem {
-                Button(action: { router.navigate(to: .folders) }) {
-                    Label("Go to folders", systemImage: "folder")
-                }
-            }
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                NavigationLink(destination: FoldersListView()) { Label("Go to folders", systemImage: "folder") }
 
-            ToolbarItem {
                 Menu {
                     // TODO: add picker for sorting here
-                    Button(action: { router.navigate(to: .settings(.root)) }, label: {
-                        Label("Settings", systemImage: "gear")
-                    })
+                    NavigationLink(destination: SettingsView()) { Label("Settings", systemImage: "gear") }
                 } label: {
                     Label("Show options", systemImage: "ellipsis.circle")
                 }
@@ -58,5 +55,4 @@ struct RecordingsListView: View {
 
 #Preview {
     RecordingsListView()
-        .environmentObject(Router())
 }

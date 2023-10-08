@@ -11,8 +11,7 @@ import SwiftWhisper
 
 @main
 struct VoitApp: App {
-    @ObservedObject var router = Router()
-    @ObservedObject var transcriptionEngine = TranscriptionEngine()
+    @ObservedObject var transcriptionEngine = TranscriptionEngine.shared
 
     @AppStorage(AppStorageKey.selectedModel.rawValue) var model: WhisperModel = .tiny
     @AppStorage(AppStorageKey.selectedLanguage.rawValue) var lang: WhisperLanguage = .auto
@@ -44,29 +43,11 @@ struct VoitApp: App {
                 .background(.red)
                 .edgesIgnoringSafeArea(.all)
             } else {
-                NavigationStack(path: $router.path) {
-                    HomeView()
-                        .navigationDestination(for: Router.Screen.self) { screen in
-                            switch screen {
-                            case .recording(let uuid):
-                                RecordingView(uuid: uuid)
-                            case .folders:
-                                FoldersListView()
-                            case .settings(let page):
-                                switch page {
-                                case .root:
-                                    SettingsView()
-                                }
-                            default:
-                                HomeView()
-                            }
-                        }
-                }
-                .tint(.accentColor)
-                .task { loadCtx() }
-                .onChange(of: model) { loadCtx() }
-                .onChange(of: lang) { loadCtx() }
-                .environmentObject(router)
+                HomeView()
+                    .tint(.accentColor)
+                    .task { loadCtx() }
+                    .onChange(of: model) { loadCtx() }
+                    .onChange(of: lang) { loadCtx() }
             }
         }
         .environmentObject(transcriptionEngine)
@@ -76,7 +57,7 @@ struct VoitApp: App {
     func loadCtx() {
         DispatchQueue.global().async {
             do {
-                try transcriptionEngine.initContext()
+                try transcriptionEngine.initWhisperCtx()
             } catch {
                 print(error.localizedDescription)
                 DispatchQueue.main.sync {

@@ -10,22 +10,22 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.modelContext) var context
-    
+
     var body: some View {
-        ZStack(alignment: .bottom) {
-            NavigationSplitView {
+        NavigationStack {
+            ZStack(alignment: .bottom) {
                 RecordingsListView()
                     .navigationTitle("All recordings")
-            } detail: {}
 
-            ProcessingQueueView()
+                ProcessingQueueView()
+            }
+            .edgesIgnoringSafeArea(.bottom)
         }
-        .edgesIgnoringSafeArea(.bottom)
     }
-    
+
     func loadUnprocessedRecordings() {
 //        let descriptor = FetchDescriptor(
-//            predicate: #Predicate<Recording> 
+//            predicate: #Predicate<Recording>
 //        )
     }
 }
