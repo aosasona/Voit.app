@@ -47,12 +47,14 @@ struct RecordingListItem: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             HStack {
-                Text(recording.status.rawValue.uppercased())
-                    .padding(.vertical, 1.5)
-                    .padding(.horizontal, 4.0)
-                    .font(.system(size: 9.0, weight: .medium))
-                    .foregroundStyle(statusTextColor)
-                    .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
+                if recording.status != .processed {
+                    Text(recording.status.rawValue.uppercased())
+                        .padding(.vertical, 1.5)
+                        .padding(.horizontal, 4.0)
+                        .font(.system(size: 9.0, weight: .medium))
+                        .foregroundStyle(statusTextColor)
+                        .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
+                }
 
                 Text(recording.createdAt.formatted())
                     .font(.caption)
@@ -75,6 +77,7 @@ struct RecordingListItem: View {
                 Label("Delete", systemImage: "trash.fill")
             }
             .tint(.red)
+            .disabled(recording.status == .processing)
 
             Button(action: {}) {
                 Label("Move to...", systemImage: "folder.fill")

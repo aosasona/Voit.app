@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.modelContext) var context
+    @EnvironmentObject var engine: TranscriptionEngine
 
     var body: some View {
         NavigationStack {
@@ -21,12 +22,24 @@ struct HomeView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
         }
+        .task {
+            fetchUnprocessedRecordings()
+        }
     }
 
-    func loadUnprocessedRecordings() {
-//        let descriptor = FetchDescriptor(
-//            predicate: #Predicate<Recording>
-//        )
+    func fetchUnprocessedRecordings() {
+        let processed = Recording.Status.processed.rawValue
+        let descriptor = FetchDescriptor<Recording>(
+            predicate: #Predicate { $0._status != processed },
+            sortBy: [SortDescriptor(\.createdAt, order: .forward), SortDescriptor(\._status, order: .forward)]
+        )
+
+        do {
+            let recordings: [Recording] = try context.fetch(descriptor)
+            engine.enqueueMultiple(recordings)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

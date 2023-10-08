@@ -23,7 +23,8 @@ struct ProcessingQueueView: View {
         } else if transcriptionEngine.queue.count <= 0 {
             "Tap '+' to add a new recording "
         } else {
-            "Processing \(transcriptionEngine.queue.count) recording\(transcriptionEngine.queue.count > 1 ? "s" : "")"
+//            "\(transcriptionEngine.queue.count) recording\(transcriptionEngine.queue.count > 1 ? "s" : "") queued"
+            "\(transcriptionEngine.queued) queued, \(transcriptionEngine.processing) processing"
         }
     }
 

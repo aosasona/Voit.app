@@ -26,7 +26,9 @@ struct RecordingsListView: View {
         List {
             ForEach(recordings, id: \.self) { recording in
                 NavigationLink {
-                    RecordingView(uuid: recording.id)
+                    RecordingView(recording: recording)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(true)
                 } label: {
                     RecordingListItem(recording: recording)
                 }

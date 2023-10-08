@@ -48,6 +48,7 @@ struct VoitApp: App {
                     .task { loadCtx() }
                     .onChange(of: model) { loadCtx() }
                     .onChange(of: lang) { loadCtx() }
+                    .onAppear { transcriptionEngine.startProcessing() }
             }
         }
         .environmentObject(transcriptionEngine)

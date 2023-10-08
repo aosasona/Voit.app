@@ -8,13 +8,26 @@
 import SwiftUI
 
 struct RecordingView: View {
-    var uuid: UUID
-    
+    var recording: Recording
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            if let transcript = recording.transcript {
+                Text(transcript.asText())
+                    .font(.system(size: 18).weight(.medium))
+                    .lineLimit(nil)
+                    .lineSpacing(3.0)
+                    .multilineTextAlignment(.leading)
+                    .padding()
+            } else {
+                Text("Nothing yet")
+                    .padding()
+            }
+        }
+        .safeAreaPadding(.vertical)
     }
 }
 
-#Preview {
-    RecordingView(uuid: UUID())
-}
+// #Preview {
+//    RecordingView(recording: Recording(title: "something", path: URL() ))
+// }
