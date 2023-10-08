@@ -36,4 +36,8 @@ final class Transcript {
         self.id = UUID()
         self.segments = segments
     }
+    
+    public func asText() -> String {
+        return self.segments.map(\.text).joined()
+    }
 }

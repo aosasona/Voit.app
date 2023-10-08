@@ -33,7 +33,7 @@ final class FileSystem {
         return FileManager.default.fileExists(atPath: url.relativePath, isDirectory: &isDirectory)
     }
 
-    private static func getDirectoryURL(_ directory: Directory) -> URL? {
+    public static func getDirectoryURL(_ directory: Directory) -> URL? {
         switch directory {
         case .document:
             return documentDirectory

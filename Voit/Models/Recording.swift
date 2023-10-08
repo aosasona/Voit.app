@@ -12,28 +12,35 @@ import SwiftData
 final class Recording {
     enum Status: String, Codable {
         case pending
-        case failed
         case processing
+        case failed
         case processed
     }
     
     @Attribute(.unique) let id: UUID
     var title: String
-    /// The URL to the path where the copied file lives (in the user land)
+    /// The filename of the file eg. something.mp3 - Apple changes the container UUID from time to time so you can't save the full URL
     var filename: String
-    var status: Status
+    var author: String? = nil
     var locked: Bool = false
     var createdAt: Date
     var lastModifiedAt: Date
+    var failedAttempts: Int = 0
     
     var folder: Folder?
     
     @Relationship(deleteRule: .cascade, inverse: \Transcript.recording)
     var transcript: Transcript?
     
+    @Attribute var _status: Status.RawValue = Status.pending.rawValue
+    @Transient var status: Status {
+        get { Status(rawValue: _status)! }
+        set { _status = newValue.rawValue }
+    }
+    
     var path: URL? {
-        guard let userDirectory = FileSystem.documentDirectory else { return nil }
-        return userDirectory.appending(path: FileSystem.Directory.recordings.rawValue).appending(path: self.filename)
+        guard let recordingDirectory = FileSystem.getDirectoryURL(.recordings) else { return nil }
+        return recordingDirectory.appending(path: filename)
     }
     
     init(title: String, path: URL, folder: Folder? = nil, transcript: Transcript? = nil, locked: Bool = false, status: Status = .pending) {
@@ -41,7 +48,7 @@ final class Recording {
         self.title = title
         self.filename = path.lastPathComponent
         self.locked = locked
-        self.status = status
+        self._status = status.rawValue
         self.createdAt = .now
         self.lastModifiedAt = .now
         
