@@ -28,12 +28,6 @@ struct RecordingsListView: View {
             ForEach(recordings, id: \.self) { recording in
                 RecordingListItem(recording: recording)
             }
-            .onDelete(perform: { indexSet in
-                for index in indexSet {
-                    guard let recording = recordings.get(index: index) else { continue }
-                    modelContext.delete(recording)
-                }
-            })
         }
         .searchable(text: $searchQuery)
         .toolbar {

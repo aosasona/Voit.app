@@ -30,7 +30,7 @@ final class Recording {
     @Relationship(deleteRule: .cascade, inverse: \Transcript.recording)
     var transcript: Transcript?
     
-    init(title: String, path: URL, locked: Bool = false, transcript: Transcript? = nil, status: Status = .pending) {
+    init(title: String, path: URL, folder: Folder? = nil, transcript: Transcript? = nil, locked: Bool = false, status: Status = .pending) {
         self.id = UUID()
         self.title = title
         self.path = path

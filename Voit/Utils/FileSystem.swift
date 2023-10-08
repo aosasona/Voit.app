@@ -60,4 +60,8 @@ final class FileSystem {
         try? FileManager.default.copyItem(at: from, to: target)
         return target
     }
+    
+    public static func deleteFile(path: URL) throws {
+        try? FileManager.default.removeItem(at: path)
+    }
 }

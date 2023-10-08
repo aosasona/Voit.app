@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct RecordingListItem: View {
+    @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var router: Router
-    var recording: Recording
+    @State private var isEditing: Bool = false
+    @State var recording: Recording
+    @State var title: String = ""
 
     var statusBgColor: Color {
         return switch recording.status {
@@ -21,7 +24,7 @@ struct RecordingListItem: View {
             Color.clear
         }
     }
-    
+
     var statusTextColor: Color {
         return switch recording.status {
         case .pending:
@@ -37,6 +40,7 @@ struct RecordingListItem: View {
         Button(action: { router.navigate(to: .recording(recording.id)) }) {
             VStack(alignment: .leading) {
                 Text(recording.title)
+
                 HStack {
                     Text(recording.status.rawValue.uppercased())
                         .padding(.vertical, 1.5)
@@ -53,7 +57,40 @@ struct RecordingListItem: View {
             }
             .padding(.vertical, 3.0)
         }
+        .task { title = recording.title }
+        .contextMenu {
+            Button(action: { isEditing = true }) { Label("Rename", systemImage: "pencil") }
+        }
+        .alert("Rename recording", isPresented: $isEditing) {
+            TextField("Enter a title", text: $title)
+            Button("Save", action: save)
+            Button("Cancel", role: .cancel) {}
+        }
+        .swipeActions(allowsFullSwipe: false) {
+            Button(role: .destructive, action: deleteRecording) {
+                Label("Delete", systemImage: "trash.fill")
+            }
+            .tint(.red)
+
+            Button(action: {}) {
+                Label("Move to...", systemImage: "folder.fill")
+            }.tint(.indigo)
+        }
         .buttonStyle(RecordingListItemStyle())
+    }
+
+    private func save() {
+        recording.title = title
+    }
+
+    private func deleteRecording() {
+        do {
+            try FileSystem.deleteFile(path: recording.path)
+            print(recording.path)
+        } catch {
+            print(error.localizedDescription)
+        }
+        modelContext.delete(recording)
     }
 }
 
@@ -66,6 +103,14 @@ struct RecordingListItemStyle: ButtonStyle {
     }
 }
 
+struct RecordingListItemPreview: View {
+    @State var recording = Recording(title: "Lorem ipsum dolor", path: URL(fileURLWithPath: ""))
+
+    var body: some View {
+        RecordingListItem(recording: recording)
+    }
+}
+
 #Preview {
-    RecordingListItem(recording: Recording(title: "Lorem ipsum dolor", path: URL(fileURLWithPath: "")))
+    RecordingListItemPreview()
 }

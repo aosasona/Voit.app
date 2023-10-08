@@ -55,10 +55,10 @@ final class AudioService {
         }
     }
 
-    public static func importFile(_ source: URL) throws -> Recording? {
+    public static func importFile(file source: URL, folder: Folder? = nil) throws -> Recording? {
         if !FileSystem.exists(.recordings) { try? makeRecordingsDirectory() }
         guard let copiedFileURL = try? FileSystem.copyFile(from: source, targetDir: .recordings) else { return nil }
-        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL)
+        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL, folder: folder)
         return recording
     }
 

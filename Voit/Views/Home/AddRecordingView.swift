@@ -12,7 +12,8 @@ import SwiftWhisper
 struct AddRecordingView: View {
     @Environment(\.modelContext) private var context
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
-    
+
+    var currentFolder: Folder? = nil
     @State private var importing: Bool = false
     @State private var showErrorAlert: Bool = false
     @State private var errorMessage: String = "Failed to import file, please try again. Report this as a bug if this issue persists!"
@@ -26,7 +27,7 @@ struct AddRecordingView: View {
         .fileImporter(isPresented: $importing, allowedContentTypes: [.audio], allowsMultipleSelection: true) { result in
             switch result {
             case .success(let files):
-                handleMultipleImports(files)
+                handleMultipleImports(files: files, folder: currentFolder)
             case .failure(let error):
                 showErrorAlert = true
                 print(error.localizedDescription)
@@ -39,7 +40,7 @@ struct AddRecordingView: View {
         }
     }
 
-    private func handleMultipleImports(_ files: [URL]) {
+    private func handleMultipleImports(files: [URL], folder: Folder?) {
         transcriptionEngine.isImportingFiles()
 
         DispatchQueue.global().async {
@@ -51,7 +52,7 @@ struct AddRecordingView: View {
                 defer { file.stopAccessingSecurityScopedResource() }
 
                 do {
-                    guard let recording = try AudioService.importFile(file) else {
+                    guard let recording = try AudioService.importFile(file: file, folder: folder) else {
                         triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
                         return
                     }
