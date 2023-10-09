@@ -38,6 +38,6 @@ final class Transcript {
     }
     
     public func asText() -> String {
-        return self.segments.map(\.text).joined()
+        return self.segments.sorted(by: { a, b in a.startTime < b.startTime }).map(\.text).joined()
     }
 }
