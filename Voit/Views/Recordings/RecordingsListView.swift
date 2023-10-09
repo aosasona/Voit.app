@@ -28,7 +28,6 @@ struct RecordingsListView: View {
                 NavigationLink {
                     RecordingView(recording: recording)
                         .navigationBarTitleDisplayMode(.inline)
-                        .navigationBarBackButtonHidden(true)
                 } label: {
                     RecordingListItem(recording: recording)
                 }
