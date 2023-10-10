@@ -21,9 +21,6 @@ final class TranscriptionEngine: ObservableObject {
     private let modelController = ModelService()
     private var dispatchQueue = DispatchQueue(label: "voit.transcription.queue", qos: .background)
     
-    public var queued: Int { return self.queue.filter { $0.status == .pending }.count }
-    public var processing: Int { return self.queue.filter { $0.status == .processing }.count }
-    
     // Queue methods
     public func enqueue(_ recording: Recording) { self.queue.append(recording) }
     public func enqueueMultiple(_ recordings: [Recording]) { recordings.forEach { self.enqueue($0) } }

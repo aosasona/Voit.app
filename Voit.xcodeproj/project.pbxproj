@@ -18,7 +18,6 @@
 		E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */; };
 		E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF12ACF4C4200E5C8D6 /* AudioKit */; };
 		E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */; };
-		E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */; };
 		E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */; };
 		E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */; };
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
@@ -48,7 +47,6 @@
 		E27DDFE42ACF458100E5C8D6 /* tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = tiny.bin; sourceTree = "<group>"; };
 		E27DDFE52ACF458300E5C8D6 /* base-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "base-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Service.swift"; sourceTree = "<group>"; };
-		E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				E29BACAC2AC9CA9400D2DE5C /* Recording.swift */,
-				E27DDFF72ACF66F800E5C8D6 /* ProcessingQueue.swift */,
 				E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */,
 				E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */,
 			);
@@ -349,7 +346,6 @@
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
 				E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */,
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
-				E27DDFF82ACF66F800E5C8D6 /* ProcessingQueue.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
