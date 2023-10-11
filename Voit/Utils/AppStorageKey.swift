@@ -8,8 +8,7 @@
 import Foundation
 
 enum AppStorageKey: String {
-    case hasCompletedSetup
-    case hasUnpackedModels
     case selectedModel
     case selectedLanguage
+    case allowNotifications
 }

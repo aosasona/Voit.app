@@ -19,7 +19,8 @@ final class AudioService {
         opts.channels = 1
         opts.isInterleaved = false
 
-        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension(input.pathExtension)
+        do { try Data().write(to: tempURL) } catch {} // just create file so that format converter doesn't complain
         let converter = FormatConverter(inputURL: input, outputURL: tempURL, options: opts)
         converter.start { err in
             if let err {
@@ -38,7 +39,7 @@ final class AudioService {
 
             do {
                 let floats = stride(from: 44, to: data.count, by: 2).map { r in
-                    return data[r ..< r + 2].withUnsafeBytes { bufPointer in
+                    data[r ..< r + 2].withUnsafeBytes { bufPointer in
                         let short = Int16(littleEndian: bufPointer.load(as: Int16.self))
                         return max(-1.0, min(Float(short) / 32767.0, 1.0))
                     }
@@ -63,6 +64,6 @@ final class AudioService {
     }
 
     private static func makeRecordingsDirectory() throws {
-        let _ = try? FileSystem.mkdirp(in: .document, path: FileSystem.Directory.recordings.rawValue)
+        _ = try? FileSystem.mkdirp(in: .document, path: FileSystem.Directory.recordings.rawValue)
     }
 }

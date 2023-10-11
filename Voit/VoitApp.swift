@@ -48,7 +48,9 @@ struct VoitApp: App {
                     .task { loadCtx() }
                     .onChange(of: model) { loadCtx() }
                     .onChange(of: lang) { loadCtx() }
-                    .onAppear { transcriptionEngine.startProcessing() }
+                    .onChange(of: transcriptionEngine.queue) {
+                        transcriptionEngine.startProcessing()
+                    }
             }
         }
         .environmentObject(transcriptionEngine)
@@ -60,7 +62,7 @@ struct VoitApp: App {
             do {
                 try transcriptionEngine.initWhisperCtx()
             } catch {
-                print(error.localizedDescription)
+                print("Failed to init whisper context: \(error.localizedDescription)")
                 DispatchQueue.main.sync {
                     // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
                     showFatalCrashScreen = true
