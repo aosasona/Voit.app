@@ -19,8 +19,8 @@ struct HomeView: View {
                     .navigationTitle("All recordings")
 
                 ProcessingQueueView()
+                    .safeAreaPadding()
             }
-            .edgesIgnoringSafeArea(.bottom)
         }
         .task {
             fetchUnprocessedRecordings()

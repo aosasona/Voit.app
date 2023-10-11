@@ -27,37 +27,45 @@ struct ProcessingQueueView: View {
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(statusText)
-                    .font(.subheadline.weight(.medium))
-                    .animation(animationValue)
-                
-                if engine.queue.count > 0 {
-                    Text("Tap to expand")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+        ZStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(statusText)
+                        .font(.subheadline.weight(.medium))
                         .animation(animationValue)
+                    
+                    if engine.queue.count > 0 {
+                        Text("Tap to expand")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .animation(animationValue)
+                    }
+                }
+                
+                Spacer()
+                
+                if !engine.hasInitializedContext || engine.importingFiles {
+                    ProgressView()
+                        .animation(animationValue, value: engine.hasInitializedContext)
+                        .padding(.all, 6)
+                } else {
+                    AddRecordingView()
+                        .animation(animationValue, value: engine.hasInitializedContext)
                 }
             }
-            
-            Spacer()
-            
-            if !engine.hasInitializedContext || engine.importingFiles {
-                ProgressView()
-                    .animation(animationValue, value: engine.hasInitializedContext)
-                    .padding(.all, 6)
-            } else {
-                AddRecordingView()
-                    .animation(animationValue, value: engine.hasInitializedContext)
-            }
+            .animation(animationValue, value: engine.hasInitializedContext)
+            .padding(.horizontal, 16)
+            .padding(.vertical, engine.hasInitializedContext ? 13 : 15)
         }
-        .animation(animationValue, value: engine.hasInitializedContext)
-        .padding(.horizontal, 16)
-        .padding(.vertical, engine.queue.count <= 0 && engine.hasInitializedContext ? 13 : 16)
         .sheet(isPresented: $showQueue) {
             ProcessingQueueListView()
+                .presentationDetents([.fraction(0.4), .large])
         }
+        .zIndex(99)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+        .onTapGesture { showQueue = true }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

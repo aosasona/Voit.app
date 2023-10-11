@@ -14,9 +14,17 @@ import SwiftWhisper
 struct SettingsView: View {
     @AppStorage(AppStorageKey.selectedModel.rawValue) var selectedModel: WhisperModel = .tiny
     @AppStorage(AppStorageKey.selectedLanguage.rawValue) var selectedLanguage: WhisperLanguage = .auto
+    @AppStorage(AppStorageKey.allowNotifications.rawValue) var allowNotifications: Bool = false
+    
+    @State var showErrorAlert = false
+    @State var errorMessage: String? = nil
 
     var body: some View {
         List {
+            Section {
+                Toggle("Enable notifications", isOn: $allowNotifications)
+            }
+            
             Section {
                 Picker("Model", selection: $selectedModel) {
                     Text("Tiny (default)").tag(WhisperModel.tiny)
@@ -33,6 +41,23 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.automatic)
+        .alert(errorMessage ?? "Something went wrong", isPresented: $showErrorAlert) {
+            Button("OK", role: .cancel, action: {})
+        }
+    }
+    
+    func triggerAlert(_ message: String) {
+        showErrorAlert = true
+        errorMessage = message
+    }
+    
+    func requestNotificationsPerm() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
+            if let error = error {
+                print("Failed to get notifications permission: \(error.localizedDescription)")
+                triggerAlert("Failed to get notifications permission")
+            }
+        }
     }
 }
 
