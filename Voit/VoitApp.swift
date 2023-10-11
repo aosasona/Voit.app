@@ -48,8 +48,11 @@ struct VoitApp: App {
                     .task { loadCtx() }
                     .onChange(of: model) { loadCtx() }
                     .onChange(of: lang) { loadCtx() }
-                    .onChange(of: transcriptionEngine.queue) {
-                        transcriptionEngine.startProcessing()
+                    .onChange(of: transcriptionEngine.queue.count) {
+                        if transcriptionEngine.isLocked { return }
+                        DispatchQueue.main.async {
+                            transcriptionEngine.startProcessing()
+                        }
                     }
             }
         }

@@ -64,7 +64,7 @@ struct ProcessingQueueView: View {
         .zIndex(99)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        .onTapGesture { showQueue = true }
+        .onTapGesture { if engine.queue.count > 0 { showQueue = true } }
         .fixedSize(horizontal: false, vertical: true)
     }
 }

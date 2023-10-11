@@ -22,8 +22,8 @@ struct HomeView: View {
                     .safeAreaPadding()
             }
         }
-        .task {
-            fetchUnprocessedRecordings()
+        .onChange(of: engine.hasInitializedContext) {
+            if engine.hasInitializedContext { fetchUnprocessedRecordings() }
         }
     }
 

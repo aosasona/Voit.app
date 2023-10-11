@@ -41,6 +41,9 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.automatic)
+        .onChange(of: allowNotifications) { _, newValue in
+            if newValue { requestNotificationsPerm() }
+        }
         .alert(errorMessage ?? "Something went wrong", isPresented: $showErrorAlert) {
             Button("OK", role: .cancel, action: {})
         }

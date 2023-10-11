@@ -21,11 +21,12 @@ final class TranscriptionEngine: ObservableObject {
     @Published var hasInitializedContext = false
     @Published var importingFiles = false
     @Published var queue = [Recording]()
+    @Published var isLocked = false
     
     private var ctx: Whisper? = nil
     private let modelController = ModelService()
-    private var isLocked = false
     private var workItem: DispatchWorkItem? = nil
+    private let processingQueue = DispatchQueue(label: "voit.processing.queue")
     
     // Queue methods
     public func enqueue(_ recording: Recording) {
@@ -43,8 +44,8 @@ final class TranscriptionEngine: ObservableObject {
     }
     
     // Engine methods
-    public func isImportingFiles() { self.importingFiles = true }
-    public func hasImportedFiles() { self.importingFiles = false }
+    public func isImportingFiles() { DispatchQueue.main.async { self.importingFiles = true } }
+    public func hasImportedFiles() { DispatchQueue.main.async { self.importingFiles = false } }
     
     public func initWhisperCtx() throws {
         DispatchQueue.main.async { self.hasInitializedContext = false }
@@ -55,8 +56,8 @@ final class TranscriptionEngine: ObservableObject {
         DispatchQueue.main.async { self.hasInitializedContext = true }
     }
     
-    private func lock() { self.isLocked = true }
-    private func unlock() { self.isLocked = false }
+    private func lock() { DispatchQueue.main.async { self.isLocked = true } }
+    private func unlock() { DispatchQueue.main.async { self.isLocked = false } }
     
     public func cancel(_ recording: Recording) throws {
         if let inProgress = self.ctx?.inProgress {
@@ -64,51 +65,39 @@ final class TranscriptionEngine: ObservableObject {
         }
         
         self.workItem?.cancel()
-        DispatchQueue.main.async {
-            if let recording = self.next() { recording.update(keyPath: \.status, to: .pending) }
-            self.dequeue(recording)
-        }
+        if let recording = self.next() { recording.status = .pending }
+        DispatchQueue.main.async { self.dequeue(recording) }
         self.workItem = nil
         self.startProcessing()
     }
     
-    private func transcribe(frames audioFrames: [Float], recording: Recording) throws -> [Segment] {
+    private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void) throws {
         var err: Error? = nil
-        var segments = [Segment]()
             
         self.ctx?.transcribe(audioFrames: audioFrames) { result in
             switch result {
             case .failure(let e): err = e
-            case .success(let segs): segments = segs
+            case .success(let segments): onComplete(segments)
             }
         }
             
         if let e = err { throw e }
-        return segments
     }
     
-    private func toAudioFrames(path: URL) throws -> [Float] {
+    private func toAudioFrames(path: URL, onComplete: @escaping ([Float]) -> Void) throws {
         var err: Error? = nil
-        var frames = [Float]()
         
         AudioService.convertToPCMArray(input: path) { result in
             switch result {
             case .failure(let e): err = e
-            case .success(let audioFrames): frames = audioFrames
+            case .success(let audioFrames): onComplete(audioFrames)
             }
         }
         
         if let e = err { throw e }
-        return frames
     }
     
     private func process(_ recording: Recording, onComplete: @escaping () -> Void) throws {
-        // Ensure only one item will be processed at once
-        if self.isLocked { return }
-        
-        // Acquire lock
-        self.lock()
-        
         // Prevent recordings that have failed one too many times from being processed
         if recording.failedAttempts >= 5 {
             DispatchQueue.main.async { self.dequeue(recording) }
@@ -116,47 +105,62 @@ final class TranscriptionEngine: ObservableObject {
             return
         }
         
-        DispatchQueue.main.async { recording.update(keyPath: \.status, to: .processing) } // notify UI of status
+        recording.status = .processing
         
         guard let path = recording.path else {
             print("Unable to get path for \(recording.title)")
             return
         }
         
-        guard let frames = try? self.toAudioFrames(path: path) else { throw TranscriptionError.noAudioFrames }
-        guard let rawSegments = try? self.transcribe(frames: frames, recording: recording) else { throw TranscriptionError.noSegments }
-        
-        let segments = rawSegments.map { TranscriptSegment(text: $0.text, startTime: $0.startTime, endTime: $0.endTime) }
-        DispatchQueue.main.async { recording.update(keyPath: \.transcript, to: Transcript(segments: segments)) }
+        try? self.toAudioFrames(path: path) { frames in
+            try? self.transcribe(frames: frames, recording: recording) { rawSegments in
+                let segments = rawSegments.map { TranscriptSegment(text: $0.text, startTime: $0.startTime, endTime: $0.endTime) }
+                recording.transcript = Transcript(segments: segments)
+                recording.status = .processed
+                recording.lastModifiedAt = .now
+            }
+        }
         
         onComplete()
     }
      
     /// Start processing items in the queue recursively
     public func startProcessing() {
-        self.workItem = DispatchWorkItem {
+        let wk = DispatchWorkItem {
             guard !self.isLocked else { return }
-            guard let recording = self.next() else { return }
+            
+            // Acquire lock
+            self.lock()
+            
+            guard let recording = self.next() else {
+                self.unlock()
+                return
+            }
+            
+            print("Processing: \(recording.title)")
             
             do {
                 try self.process(recording) {
-                    recording.update(keyPath: \.status, to: .processed)
-                    
                     // Remove from queue, release lock and recursely process next item
                     // TODO: send notification on completion if enabled
-                    DispatchQueue.main.async { self.dequeue() }
+                    DispatchQueue.main.async {
+                        self.dequeue()
+                        self.unlock()
+                        self.startProcessing()
+                    }
+                }
+            } catch {
+                print("Error processing `\(recording.title)` (\(recording.id.uuidString): \(error.localizedDescription)")
+                recording.status = .failed
+                recording.failedAttempts += 1
+                DispatchQueue.main.async {
                     self.unlock()
                     self.startProcessing()
                 }
-            } catch {
-                recording.update(keyPath: \.status, to: .failed)
-                recording.update(keyPath: \.failedAttempts, to: recording.failedAttempts + 1)
-                print("Error processing `\(recording.title)` (\(recording.id.uuidString): \(error.localizedDescription)")
             }
         }
         
-        if let wk = self.workItem {
-            DispatchQueue.global(qos: .background).async(execute: wk)
-        }
+        self.workItem = wk
+        DispatchQueue.global(qos: .background).async(execute: wk)
     }
 }

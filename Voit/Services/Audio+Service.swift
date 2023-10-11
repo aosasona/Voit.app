@@ -19,8 +19,7 @@ final class AudioService {
         opts.channels = 1
         opts.isInterleaved = false
 
-        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension(input.pathExtension)
-        do { try Data().write(to: tempURL) } catch {} // just create file so that format converter doesn't complain
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
         let converter = FormatConverter(inputURL: input, outputURL: tempURL, options: opts)
         converter.start { err in
             if let err {
