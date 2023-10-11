@@ -18,8 +18,6 @@ struct AddRecordingView: View {
     @State private var showErrorAlert: Bool = false
     @State private var errorMessage: String = "Failed to import file, please try again. Report this as a bug if this issue persists!"
 
-    private var queue = DispatchQueue(label: "queue.import", qos: .background)
-
     var body: some View {
         Button(action: { importing = true }) {
             Image(systemName: "plus")
@@ -45,33 +43,29 @@ struct AddRecordingView: View {
     private func handleMultipleImports(files: [URL], folder: Folder?) {
         transcriptionEngine.isImportingFiles()
 
-        queue.async {
-            files.forEach { file in
-                if !file.startAccessingSecurityScopedResource() {
-                    triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
+        files.forEach { file in
+            if !file.startAccessingSecurityScopedResource() {
+                triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
+                return
+            }
+            defer { file.stopAccessingSecurityScopedResource() }
+
+            do {
+                guard let recording = try AudioService.importFile(file: file, folder: folder) else {
+                    triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
                     return
                 }
-                defer { file.stopAccessingSecurityScopedResource() }
-
-                do {
-                    guard let recording = try AudioService.importFile(file: file, folder: folder) else {
-                        triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        transcriptionEngine.enqueue(recording)
-                        context.insert(recording)
-                    }
-                } catch FileSystem.FSError.failedToGetDocumentDir {
-                    // if this ever happens, just crash the app and make the user launch it again
-                    fatalError("Failed to get document directory: this should have never happened")
-                } catch {
-                    triggerError("Failed to import file: \(file.lastPathComponent)", fromExternalQueue: true)
-                }
+                transcriptionEngine.enqueue(recording)
+                context.insert(recording)
+            } catch FileSystem.FSError.failedToGetDocumentDir {
+                // if this ever happens, just crash the app and make the user launch it again
+                fatalError("Failed to get document directory: this should have never happened")
+            } catch {
+                triggerError("Failed to import file: \(file.lastPathComponent)", fromExternalQueue: true)
             }
-
-            DispatchQueue.main.async { transcriptionEngine.hasImportedFiles() }
         }
+
+        transcriptionEngine.hasImportedFiles()
     }
 
     private func triggerError(_ message: String) {

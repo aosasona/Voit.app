@@ -50,7 +50,8 @@ struct VoitApp: App {
                     .task { self.loadCtx() }
                     .onChange(of: self.model) { self.loadCtx() }
                     .onChange(of: self.lang) { self.loadCtx() }
-                    .onChange(of: self.transcriptionEngine.queue.count) {
+                    .onChange(of: self.transcriptionEngine.queue) { oldQueue, newQueue in
+                        if oldQueue.count > newQueue.count { return }
                         if self.transcriptionEngine.isLocked { return }
                         self.transcriptionEngine.startProcessing()
                     }

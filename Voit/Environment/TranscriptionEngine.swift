@@ -31,6 +31,8 @@ final class TranscriptionEngine: ObservableObject {
     public func enqueue(_ recording: Recording) {
         // make sure it hasn't failed one too many times before adding it to the queue
         guard recording.failedAttempts < 5 else { return }
+        // reset the status assuming it got cancelled by something other than the engine itself (say the user closed the app)
+        if recording.status == .processing { recording.status = .pending }
         self.queue.append(recording)
     }
 
@@ -69,27 +71,36 @@ final class TranscriptionEngine: ObservableObject {
         self.startProcessing()
     }
     
-    private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void) {
-        // TODO: btter error handling
+    private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void, onFail: @escaping (Error) -> Void) {
         self.ctx?.transcribe(audioFrames: audioFrames) { result in
             switch result {
             case .failure(let e):
-                print(e.localizedDescription)
+                onFail(e)
             case .success(let segments):
                 onComplete(segments)
             }
         }
     }
     
-    private func toAudioFrames(path: URL, onComplete: @escaping ([Float]) -> Void) {
-        // TODO: btter error handling
+    private func toAudioFrames(path: URL, onComplete: @escaping ([Float]) -> Void, onFail: @escaping (Error) -> Void) {
         AudioService.convertToPCMArray(input: path) { result in
             switch result {
             case .failure(let e):
-                print(e.localizedDescription)
+                onFail(e)
             case .success(let audioFrames):
                 onComplete(audioFrames)
             }
+        }
+    }
+    
+    private func handleProcessingError(err: Error, recording: Recording) {
+        print("Failed to process `\(recording.title)`: \(err.localizedDescription)")
+        recording.status = .failed
+        self.unlock()
+        DispatchQueue.main.async {
+            Notification.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
+            self.dequeue()
+            self.startProcessing()
         }
     }
     
@@ -116,21 +127,20 @@ final class TranscriptionEngine: ObservableObject {
                 recording.lastModifiedAt = .now
                 
                 // Remove from queue, release lock and recursely process next item
-                // TODO: send notification on completion if enabled
+                self.unlock()
                 DispatchQueue.main.async {
                     Notification.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
                     self.dequeue()
-                    self.unlock()
                     self.startProcessing()
                 }
-            }
-        }
+            } onFail: { self.handleProcessingError(err: $0, recording: recording) }
+        } onFail: { self.handleProcessingError(err: $0, recording: recording) }
     }
      
     /// Start processing items in the queue recursively
     public func startProcessing() {
         guard !self.isLocked else { return }
-        self.processingQueue.async {
+        self.processingQueue.sync {
             // Acquire lock
             self.lock()
             
