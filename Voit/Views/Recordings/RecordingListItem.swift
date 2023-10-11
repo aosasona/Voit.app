@@ -77,7 +77,7 @@ struct RecordingListItem: View {
                 Label("Delete", systemImage: "trash.fill")
             }
             .tint(.red)
-//            .disabled(recording.status == .processing)
+            .disabled(recording.status == .processing)
 
             Button(action: {}) {
                 Label("Move to...", systemImage: "folder.fill")
@@ -91,8 +91,8 @@ struct RecordingListItem: View {
 
     private func deleteRecording() {
         // Prevent deletion of a recording that is already being processed
-//        if recording.status == .processing { return }
-        transcriptionEngine.dequeue(recording)
+        if recording.status == .processing { return }
+        DispatchQueue.main.async { transcriptionEngine.dequeue(recording) }
         defer { modelContext.delete(recording) }
 
         do {

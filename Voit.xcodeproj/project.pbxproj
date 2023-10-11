@@ -20,6 +20,7 @@
 		E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */; };
 		E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */; };
 		E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */; };
+		E299079D2AD652BF00B0E9CA /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299079C2AD652BF00B0E9CA /* Notification.swift */; };
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Service.swift"; sourceTree = "<group>"; };
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		E299079C2AD652BF00B0E9CA /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				E23E0C652AD1A87C00032246 /* FileSystem.swift */,
 				E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */,
+				E299079C2AD652BF00B0E9CA /* Notification.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
+				E299079D2AD652BF00B0E9CA /* Notification.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,

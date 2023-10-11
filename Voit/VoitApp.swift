@@ -18,6 +18,8 @@ struct VoitApp: App {
 
     @State var showFatalCrashScreen = false
 
+    private var ctxQueue = DispatchQueue(label: "queue.ctx")
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Recording.self,
@@ -35,7 +37,7 @@ struct VoitApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if showFatalCrashScreen {
+            if self.showFatalCrashScreen {
                 VStack {
                     Text("Something went horribly wrong, please restart the app!")
                 }
@@ -45,30 +47,28 @@ struct VoitApp: App {
             } else {
                 HomeView()
                     .tint(.accentColor)
-                    .task { loadCtx() }
-                    .onChange(of: model) { loadCtx() }
-                    .onChange(of: lang) { loadCtx() }
-                    .onChange(of: transcriptionEngine.queue.count) {
-                        if transcriptionEngine.isLocked { return }
-                        DispatchQueue.main.async {
-                            transcriptionEngine.startProcessing()
-                        }
+                    .task { self.loadCtx() }
+                    .onChange(of: self.model) { self.loadCtx() }
+                    .onChange(of: self.lang) { self.loadCtx() }
+                    .onChange(of: self.transcriptionEngine.queue.count) {
+                        if self.transcriptionEngine.isLocked { return }
+                        self.transcriptionEngine.startProcessing()
                     }
             }
         }
-        .environmentObject(transcriptionEngine)
-        .modelContainer(sharedModelContainer)
+        .environmentObject(self.transcriptionEngine)
+        .modelContainer(self.sharedModelContainer)
     }
 
     func loadCtx() {
-        DispatchQueue.global().async {
+        self.ctxQueue.async {
             do {
-                try transcriptionEngine.initWhisperCtx()
+                try self.transcriptionEngine.initWhisperCtx()
             } catch {
                 print("Failed to init whisper context: \(error.localizedDescription)")
                 DispatchQueue.main.sync {
                     // Instead of horribly crashing, try to give the user a chance to reset their model-related settings
-                    showFatalCrashScreen = true
+                    self.showFatalCrashScreen = true
                 }
             }
         }

@@ -25,8 +25,7 @@ final class TranscriptionEngine: ObservableObject {
     
     private var ctx: Whisper? = nil
     private let modelController = ModelService()
-    private var workItem: DispatchWorkItem? = nil
-    private let processingQueue = DispatchQueue(label: "voit.processing.queue")
+    private let processingQueue = DispatchQueue(label: "queue.processing")
     
     // Queue methods
     public func enqueue(_ recording: Recording) {
@@ -59,45 +58,42 @@ final class TranscriptionEngine: ObservableObject {
     private func lock() { DispatchQueue.main.async { self.isLocked = true } }
     private func unlock() { DispatchQueue.main.async { self.isLocked = false } }
     
-    public func cancel(_ recording: Recording) throws {
+    private func cancel(_ recording: Recording) throws {
         if let inProgress = self.ctx?.inProgress {
             if inProgress { try? self.ctx?.cancel {} }
         }
         
-        self.workItem?.cancel()
+        // TODO: get it out of the queue properly (private for now)
         if let recording = self.next() { recording.status = .pending }
         DispatchQueue.main.async { self.dequeue(recording) }
-        self.workItem = nil
         self.startProcessing()
     }
     
-    private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void) throws {
-        var err: Error? = nil
-            
+    private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void) {
+        // TODO: btter error handling
         self.ctx?.transcribe(audioFrames: audioFrames) { result in
             switch result {
-            case .failure(let e): err = e
-            case .success(let segments): onComplete(segments)
+            case .failure(let e):
+                print(e.localizedDescription)
+            case .success(let segments):
+                onComplete(segments)
             }
         }
-            
-        if let e = err { throw e }
     }
     
-    private func toAudioFrames(path: URL, onComplete: @escaping ([Float]) -> Void) throws {
-        var err: Error? = nil
-        
+    private func toAudioFrames(path: URL, onComplete: @escaping ([Float]) -> Void) {
+        // TODO: btter error handling
         AudioService.convertToPCMArray(input: path) { result in
             switch result {
-            case .failure(let e): err = e
-            case .success(let audioFrames): onComplete(audioFrames)
+            case .failure(let e):
+                print(e.localizedDescription)
+            case .success(let audioFrames):
+                onComplete(audioFrames)
             }
         }
-        
-        if let e = err { throw e }
     }
     
-    private func process(_ recording: Recording, onComplete: @escaping () -> Void) throws {
+    private func process(_ recording: Recording) {
         // Prevent recordings that have failed one too many times from being processed
         if recording.failedAttempts >= 5 {
             DispatchQueue.main.async { self.dequeue(recording) }
@@ -112,23 +108,29 @@ final class TranscriptionEngine: ObservableObject {
             return
         }
         
-        try? self.toAudioFrames(path: path) { frames in
-            try? self.transcribe(frames: frames, recording: recording) { rawSegments in
+        self.toAudioFrames(path: path) { frames in
+            self.transcribe(frames: frames, recording: recording) { rawSegments in
                 let segments = rawSegments.map { TranscriptSegment(text: $0.text, startTime: $0.startTime, endTime: $0.endTime) }
                 recording.transcript = Transcript(segments: segments)
                 recording.status = .processed
                 recording.lastModifiedAt = .now
+                
+                // Remove from queue, release lock and recursely process next item
+                // TODO: send notification on completion if enabled
+                DispatchQueue.main.async {
+                    Notification.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
+                    self.dequeue()
+                    self.unlock()
+                    self.startProcessing()
+                }
             }
         }
-        
-        onComplete()
     }
      
     /// Start processing items in the queue recursively
     public func startProcessing() {
-        let wk = DispatchWorkItem {
-            guard !self.isLocked else { return }
-            
+        guard !self.isLocked else { return }
+        self.processingQueue.async {
             // Acquire lock
             self.lock()
             
@@ -137,30 +139,7 @@ final class TranscriptionEngine: ObservableObject {
                 return
             }
             
-            print("Processing: \(recording.title)")
-            
-            do {
-                try self.process(recording) {
-                    // Remove from queue, release lock and recursely process next item
-                    // TODO: send notification on completion if enabled
-                    DispatchQueue.main.async {
-                        self.dequeue()
-                        self.unlock()
-                        self.startProcessing()
-                    }
-                }
-            } catch {
-                print("Error processing `\(recording.title)` (\(recording.id.uuidString): \(error.localizedDescription)")
-                recording.status = .failed
-                recording.failedAttempts += 1
-                DispatchQueue.main.async {
-                    self.unlock()
-                    self.startProcessing()
-                }
-            }
+            self.process(recording)
         }
-        
-        self.workItem = wk
-        DispatchQueue.global(qos: .background).async(execute: wk)
     }
 }

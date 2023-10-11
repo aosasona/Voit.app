@@ -18,6 +18,8 @@ struct AddRecordingView: View {
     @State private var showErrorAlert: Bool = false
     @State private var errorMessage: String = "Failed to import file, please try again. Report this as a bug if this issue persists!"
 
+    private var queue = DispatchQueue(label: "queue.import", qos: .background)
+
     var body: some View {
         Button(action: { importing = true }) {
             Image(systemName: "plus")
@@ -43,7 +45,7 @@ struct AddRecordingView: View {
     private func handleMultipleImports(files: [URL], folder: Folder?) {
         transcriptionEngine.isImportingFiles()
 
-        DispatchQueue.global().async {
+        queue.async {
             files.forEach { file in
                 if !file.startAccessingSecurityScopedResource() {
                     triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
