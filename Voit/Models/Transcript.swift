@@ -40,4 +40,12 @@ final class Transcript {
     public func asText() -> String {
         return self.segments.sorted(by: { a, b in a.startTime < b.startTime }).map(\.text).joined()
     }
+    
+    public func containsText(text: String) -> Bool {
+        for transcript in self.segments {
+            if transcript.text.lowercased().contains(text.lowercased()) { return true }
+        }
+        
+        return false
+    }
 }

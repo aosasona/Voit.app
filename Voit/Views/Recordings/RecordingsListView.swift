@@ -16,9 +16,13 @@ struct RecordingsListView: View {
 
     var recordings: [Recording] {
         guard searchQuery.isEmpty == false else { return allRecordings }
-        // TODO: make transcripts searchable
         return allRecordings.filter { recording in
-            recording.title.lowercased().contains(searchQuery.lowercased())
+            let query = searchQuery.lowercased()
+            if let transcript = recording.transcript {
+                return recording.title.lowercased().contains(query) || transcript.containsText(text: query)
+            } else {
+                return recording.title.lowercased().contains(query)
+            }
         }
     }
 

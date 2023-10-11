@@ -33,7 +33,6 @@ final class Notification {
         content.subtitle = subtitle
         content.sound = UNNotificationSound.default
         
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         
         UNUserNotificationCenter.current().add(request)

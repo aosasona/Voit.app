@@ -10,6 +10,7 @@
 		E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C652AD1A87C00032246 /* FileSystem.swift */; };
 		E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C692AD1CA7000032246 /* FoldersListView.swift */; };
 		E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C6C2AD2042100032246 /* Array+Extension.swift */; };
+		E262B8902AD6E831003AA15A /* WhisperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */; };
 		E27DDFC22ACE313400E5C8D6 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */; };
 		E27DDFE62ACF458300E5C8D6 /* base.bin in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE22ACF457C00E5C8D6 /* base.bin */; };
 		E27DDFE72ACF458300E5C8D6 /* tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */; };
@@ -43,6 +44,7 @@
 		E23E0C652AD1A87C00032246 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		E23E0C692AD1CA7000032246 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
 		E23E0C6C2AD2042100032246 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperDelegate.swift; sourceTree = "<group>"; };
 		E27DDFE22ACF457C00E5C8D6 /* base.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = base.bin; sourceTree = "<group>"; };
 		E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFE42ACF458100E5C8D6 /* tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = tiny.bin; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */,
+				E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
+				E262B8902AD6E831003AA15A /* WhisperDelegate.swift in Sources */,
 				E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */,
 				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
 				E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */,
