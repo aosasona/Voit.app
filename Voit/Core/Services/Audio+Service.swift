@@ -6,10 +6,15 @@
 //
 
 import AudioKit
+import AVFoundation
 import Foundation
 
 final class AudioService {
     static let fileManager = FileManager()
+    
+    enum ImportError: Error {
+        case unableToDetermineDuration
+    }
 
     public static func convertToPCMArray(input: URL, completionHandler: @escaping (Result<[Float], Error>) -> Void) {
         var opts = FormatConverter.Options()
@@ -55,10 +60,16 @@ final class AudioService {
         }
     }
 
-    public static func importFile(file source: URL, folder: Folder? = nil) throws -> Recording? {
+    public static func importFile(file source: URL, folder: Folder? = nil) async throws -> Recording? {
         if !FileSystem.exists(.recordings) { try? makeRecordingsDirectory() }
         guard let copiedFileURL = try? FileSystem.copyFile(from: source, targetDir: .recordings) else { return nil }
-        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL, folder: folder)
+        
+        let asset = AVAsset(url: copiedFileURL)
+        guard let duration = try? await asset.load(.duration) else {
+            throw ImportError.unableToDetermineDuration
+        }
+        
+        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL, folder: folder, duration: duration.seconds)
         return recording
     }
 

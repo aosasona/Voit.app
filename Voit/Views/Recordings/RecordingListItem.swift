@@ -56,12 +56,18 @@ struct RecordingListItem: View {
                         .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
                 }
 
+                if let duration = recording.duration.format(.humanReadableDuration) {
+                    Text(duration)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
                 Text(recording.createdAt.formatted())
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .padding(.top, 1.0)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 1.0)
         }
         .task { title = recording.title }
         .contextMenu {
