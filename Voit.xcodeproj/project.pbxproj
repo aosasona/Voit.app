@@ -18,10 +18,9 @@
 		E27DDFE92ACF458300E5C8D6 /* base-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE52ACF458300E5C8D6 /* base-encoder.mlmodelc */; };
 		E27DDFEC2ACF4A7E00E5C8D6 /* Audio+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */; };
 		E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF12ACF4C4200E5C8D6 /* AudioKit */; };
-		E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */; };
 		E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */; };
 		E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */; };
-		E299079D2AD652BF00B0E9CA /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299079C2AD652BF00B0E9CA /* Notification.swift */; };
+		E299079D2AD652BF00B0E9CA /* NotificationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */; };
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
@@ -40,6 +39,19 @@
 		E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FDBC732AD2156800577C58 /* RecordingListItem.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E28444CE2AD75A15001BE165 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		E23E0C652AD1A87C00032246 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		E23E0C692AD1CA7000032246 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
@@ -52,7 +64,7 @@
 		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Service.swift"; sourceTree = "<group>"; };
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		E299079C2AD652BF00B0E9CA /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtil.swift; sourceTree = "<group>"; };
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E27DDFF52ACF5F0600E5C8D6 /* ActivityIndicatorView in Frameworks */,
 				E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */,
 				E27DDFC22ACE313400E5C8D6 /* SwiftWhisper in Frameworks */,
 			);
@@ -109,7 +120,7 @@
 			children = (
 				E23E0C652AD1A87C00032246 /* FileSystem.swift */,
 				E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */,
-				E299079C2AD652BF00B0E9CA /* Notification.swift */,
+				E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 				E29BAC862AC9A66400D2DE5C /* Sources */,
 				E29BAC872AC9A66400D2DE5C /* Frameworks */,
 				E29BAC882AC9A66400D2DE5C /* Resources */,
+				E28444CE2AD75A15001BE165 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -272,7 +284,6 @@
 			packageProductDependencies = (
 				E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */,
 				E27DDFF12ACF4C4200E5C8D6 /* AudioKit */,
-				E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */,
 			);
 			productName = Voit;
 			productReference = E29BAC8A2AC9A66400D2DE5C /* Voit.app */;
@@ -305,7 +316,6 @@
 			packageReferences = (
 				E27DDFC02ACE313400E5C8D6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */,
 				E27DDFF02ACF4C4200E5C8D6 /* XCRemoteSwiftPackageReference "AudioKit" */,
-				E27DDFF32ACF5F0600E5C8D6 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */,
 			);
 			productRefGroup = E29BAC8B2AC9A66400D2DE5C /* Products */;
 			projectDirPath = "";
@@ -355,7 +365,7 @@
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
-				E299079D2AD652BF00B0E9CA /* Notification.swift in Sources */,
+				E299079D2AD652BF00B0E9CA /* NotificationUtil.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
@@ -487,62 +497,76 @@
 		E29BAC9D2AC9A66600D2DE5C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Voit/Voit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Voit/Preview Content\"";
 				DEVELOPMENT_TEAM = Q37WBU54YU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Voit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Voit;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = wyte.space.Voit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wytespace.voit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		E29BAC9E2AC9A66600D2DE5C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Voit/Voit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Voit/Preview Content\"";
 				DEVELOPMENT_TEAM = Q37WBU54YU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Voit/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Voit;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = wyte.space.Voit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wytespace.voit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -586,14 +610,6 @@
 				minimumVersion = 5.6.1;
 			};
 		};
-		E27DDFF32ACF5F0600E5C8D6 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/ActivityIndicatorView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -606,11 +622,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E27DDFF02ACF4C4200E5C8D6 /* XCRemoteSwiftPackageReference "AudioKit" */;
 			productName = AudioKit;
-		};
-		E27DDFF42ACF5F0600E5C8D6 /* ActivityIndicatorView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E27DDFF32ACF5F0600E5C8D6 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */;
-			productName = ActivityIndicatorView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

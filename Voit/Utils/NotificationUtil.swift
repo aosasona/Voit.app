@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import SwiftUI
 
-final class Notification {
-    public static let main = Notification()
+final class NotificationUtil {
+    public static let main = NotificationUtil()
     
     @AppStorage(AppStorageKey.allowNotifications.rawValue) var allowNotifications: Bool = false
     
