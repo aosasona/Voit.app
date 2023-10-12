@@ -9,11 +9,8 @@ import Foundation
 import SwiftUI
 import UIKit
 
-final class NotificationUtil {
-    public static let main = NotificationUtil()
-    
+final class NotificationService {
     @AppStorage(AppStorageKey.allowNotifications.rawValue) var allowNotifications: Bool = false
-    
     private let center = UNUserNotificationCenter.current()
     
     public func trigger(title: String, subtitle: String, body: String? = nil) {

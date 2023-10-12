@@ -22,7 +22,7 @@ struct ProcessingQueueView: View {
         } else if engine.queue.count <= 0 {
             "Tap '+' to add a new recording "
         } else {
-            "\(engine.queue.count) queued, \(processing) processing"
+            "\(engine.queue.count - processing) queued, \(processing) processing"
         }
     }
     
