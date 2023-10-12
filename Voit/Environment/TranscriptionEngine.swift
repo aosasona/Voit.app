@@ -98,7 +98,7 @@ final class TranscriptionEngine: ObservableObject {
         recording.status = .failed
         self.unlock()
         DispatchQueue.main.async {
-            Notification.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
+            NotificationUtil.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
             self.dequeue()
             self.startProcessing()
         }
@@ -129,7 +129,7 @@ final class TranscriptionEngine: ObservableObject {
                 // Remove from queue, release lock and recursely process next item
                 self.unlock()
                 DispatchQueue.main.async {
-                    Notification.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
+                    NotificationUtil.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
                     self.dequeue()
                     self.startProcessing()
                 }

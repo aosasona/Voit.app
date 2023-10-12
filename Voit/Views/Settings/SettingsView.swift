@@ -23,6 +23,9 @@ struct SettingsView: View {
         List {
             Section {
                 Toggle("Enable notifications", isOn: $allowNotifications)
+                Button(action: { NotificationUtil.main.trigger(title: "Test", subtitle: "This is a test notification")  }) {
+                    Text("Test notifications").multilineTextAlignment(.leading)
+                }
             }
             
             Section {
@@ -55,9 +58,14 @@ struct SettingsView: View {
     }
     
     func requestNotificationsPerm() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if let error = error {
                 print("Failed to get notifications permission: \(error.localizedDescription)")
+                triggerAlert("Failed to get notifications permission")
+            }
+            
+            if !success {
+                print("Somehow failed to get notifications perm?")
                 triggerAlert("Failed to get notifications permission")
             }
         }

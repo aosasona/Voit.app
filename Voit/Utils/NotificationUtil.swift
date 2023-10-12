@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 final class NotificationUtil {
     public static let main = NotificationUtil()
@@ -16,25 +16,23 @@ final class NotificationUtil {
     
     private let center = UNUserNotificationCenter.current()
     
-    public var hasPerm: Bool {
-        var isAuthorized: Bool = false
-        
-        center.getNotificationSettings { settings in
-            if settings.authorizationStatus != .denied && settings.authorizationStatus != .notDetermined { isAuthorized = true }
-        }
-        
-        return isAuthorized && allowNotifications
-    }
-    
     public func trigger(title: String, subtitle: String, body: String? = nil) {
-        if !self.hasPerm { return }
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.subtitle = subtitle
-        content.sound = UNNotificationSound.default
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        
-        UNUserNotificationCenter.current().add(request)
+        center.getNotificationSettings { settings in
+            if !self.allowNotifications || !(settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional) { return }
+            
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.subtitle = subtitle
+            content.body = body ?? subtitle
+            content.sound = UNNotificationSound.default
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if error != nil {
+                    print("Failed to trigger notifications: \(error!.localizedDescription)")
+                }
+            }
+        }
     }
 }
