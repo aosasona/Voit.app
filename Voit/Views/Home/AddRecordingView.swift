@@ -47,9 +47,8 @@ struct AddRecordingView: View {
         let group = DispatchGroup()
 
         files.forEach { file in
+            group.enter()
             importQueue.async(group: group) {
-                group.enter()
-
                 if !file.startAccessingSecurityScopedResource() {
                     triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
                     group.leave()

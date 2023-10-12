@@ -23,7 +23,7 @@ final class NotificationService {
             let content = UNMutableNotificationContent()
             content.title = title
             content.subtitle = subtitle
-            content.body = body ?? subtitle
+            if let nBody = body { content.body = nBody }
             content.sound = UNNotificationSound.default
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)

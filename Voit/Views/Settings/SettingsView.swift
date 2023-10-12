@@ -23,9 +23,6 @@ struct SettingsView: View {
         List {
             Section {
                 Toggle("Enable notifications", isOn: $allowNotifications)
-                Button(action: { NotificationService.main.trigger(title: "Test", subtitle: "This is a test notification")  }) {
-                    Text("Test notifications").multilineTextAlignment(.leading)
-                }
             }
             
             Section {
