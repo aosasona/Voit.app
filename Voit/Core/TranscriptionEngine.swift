@@ -30,7 +30,10 @@ final class TranscriptionEngine: ObservableObject {
     // Queue methods
     public func enqueue(_ recording: Recording) {
         // make sure it hasn't failed one too many times before adding it to the queue
-        guard recording.failedAttempts < 5 else { return }
+        guard recording.failedAttempts < 5 else { return } // Just avoid a recording that has failed 5 times already
+        guard recording.status != .processed else { return } // We don't care about an item that has been marked as processed
+        guard !self.queue.contains(where: { $0.id == recording.id }) else { return } // Ensure an item cannot be enqueued twice
+        
         // reset the status assuming it got cancelled by something other than the engine itself (say the user closed the app)
         if recording.status == .processing { recording.status = .pending }
         self.queue.append(recording)
@@ -98,7 +101,7 @@ final class TranscriptionEngine: ObservableObject {
         recording.status = .failed
         self.unlock()
         DispatchQueue.main.async {
-            NotificationUtil.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
+            NotificationService.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
             self.dequeue()
             self.startProcessing()
         }
@@ -129,7 +132,7 @@ final class TranscriptionEngine: ObservableObject {
                 // Remove from queue, release lock and recursely process next item
                 self.unlock()
                 DispatchQueue.main.async {
-                    NotificationUtil.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
+                    NotificationService.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
                     self.dequeue()
                     self.startProcessing()
                 }

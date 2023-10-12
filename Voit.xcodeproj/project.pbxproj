@@ -20,7 +20,7 @@
 		E27DDFF22ACF4C4200E5C8D6 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFF12ACF4C4200E5C8D6 /* AudioKit */; };
 		E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */; };
 		E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */; };
-		E299079D2AD652BF00B0E9CA /* NotificationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */; };
+		E299079D2AD652BF00B0E9CA /* Notification+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E299079C2AD652BF00B0E9CA /* Notification+Service.swift */; };
 		E29BAC8E2AC9A66400D2DE5C /* VoitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */; };
 		E29BAC942AC9A66600D2DE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC932AC9A66600D2DE5C /* Assets.xcassets */; };
 		E29BAC972AC9A66600D2DE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */; };
@@ -64,7 +64,7 @@
 		E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audio+Service.swift"; sourceTree = "<group>"; };
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtil.swift; sourceTree = "<group>"; };
+		E299079C2AD652BF00B0E9CA /* Notification+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Service.swift"; sourceTree = "<group>"; };
 		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,12 +115,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E26747CA2AD89DD400B739F7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E23E0C6B2AD2041000032246 /* Extensions */,
+				E27DDFED2ACF4A8300E5C8D6 /* Services */,
+				E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */,
+				E23E0C652AD1A87C00032246 /* FileSystem.swift */,
+				E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		E27DDFBF2ACE261100E5C8D6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E23E0C652AD1A87C00032246 /* FileSystem.swift */,
 				E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */,
-				E299079C2AD652BF00B0E9CA /* NotificationUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -148,17 +158,9 @@
 			children = (
 				E27DDFEB2ACF4A7E00E5C8D6 /* Audio+Service.swift */,
 				E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */,
+				E299079C2AD652BF00B0E9CA /* Notification+Service.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		E27DDFF62ACF60D200E5C8D6 /* Environment */ = {
-			isa = PBXGroup;
-			children = (
-				E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */,
-				E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */,
-			);
-			path = Environment;
 			sourceTree = "<group>";
 		};
 		E29BAC812AC9A66400D2DE5C = {
@@ -180,9 +182,7 @@
 		E29BAC8C2AC9A66400D2DE5C /* Voit */ = {
 			isa = PBXGroup;
 			children = (
-				E23E0C6B2AD2041000032246 /* Extensions */,
-				E27DDFF62ACF60D200E5C8D6 /* Environment */,
-				E27DDFED2ACF4A8300E5C8D6 /* Services */,
+				E26747CA2AD89DD400B739F7 /* Core */,
 				E27DDFEA2ACF458800E5C8D6 /* WhisperModels */,
 				E27DDFD62ACEF5C400E5C8D6 /* Assets */,
 				E27DDFBF2ACE261100E5C8D6 /* Utils */,
@@ -365,7 +365,7 @@
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
-				E299079D2AD652BF00B0E9CA /* NotificationUtil.swift in Sources */,
+				E299079D2AD652BF00B0E9CA /* Notification+Service.swift in Sources */,
 				E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */,
 				E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */,
 				E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */,
