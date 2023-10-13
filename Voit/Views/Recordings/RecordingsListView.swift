@@ -29,27 +29,11 @@ struct RecordingsListView: View {
     var body: some View {
         List {
             ForEach(recordings, id: \.self) { recording in
-                NavigationLink {
-                    RecordingView(recording: recording)
-                        .navigationBarTitleDisplayMode(.inline)
-                } label: {
-                    RecordingListItem(recording: recording)
-                }
+                RecordingListItem(recording: recording)
             }
         }
+        .listStyle(.plain)
         .searchable(text: $searchQuery)
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                NavigationLink(destination: FoldersListView()) { Label("Go to folders", systemImage: "folder") }
-
-                Menu {
-                    // TODO: add picker for sorting here
-                    NavigationLink(destination: SettingsView()) { Label("Settings", systemImage: "gear") }
-                } label: {
-                    Label("Show options", systemImage: "ellipsis.circle")
-                }
-            }
-        }
         .overlay {
             if !searchQuery.isEmpty, recordings.isEmpty {
                 ContentUnavailableView.search

@@ -11,9 +11,8 @@ struct RecordingListItem: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var transcriptionEngine: TranscriptionEngine
 
-    @State private var isEditing: Bool = false
+    @StateObject var viewModel = RecordingListItemViewModel()
     @State var recording: Recording
-    @State var title: String = ""
 
     var statusBgColor: Color {
         return switch recording.status {
@@ -41,10 +40,36 @@ struct RecordingListItem: View {
         }
     }
 
+    var footerText: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+
+        var footer = dateFormatter.string(from: recording.createdAt)
+
+        if let duration = recording.duration.format(.humanReadableDuration) {
+            footer += " • \(duration)"
+        }
+
+        return footer
+    }
+
     var body: some View {
         VStack {
             Text(recording.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .lineLimit(2)
+                .fontWeight(.bold)
+
+            if let transcript = recording.transcript {
+                Text(transcript.asText().trimmingCharacters(in: .whitespacesAndNewlines))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 1)
+            }
 
             HStack {
                 if recording.status != .processed {
@@ -56,26 +81,25 @@ struct RecordingListItem: View {
                         .background(RoundedRectangle(cornerRadius: 3.0, style: .circular).fill(statusBgColor))
                 }
 
-                if let duration = recording.duration.format(.humanReadableDuration) {
-                    Text(duration)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Text(recording.createdAt.formatted())
+                Text("\(footerText)")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 0)
+                    .foregroundStyle(.secondary.opacity(0.7))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 1.0)
         }
-        .task { title = recording.title }
-        .contextMenu {
-            Button(action: { isEditing = true }) { Label("Rename", systemImage: "pencil") }
+        .task { viewModel.title = recording.title }
+        .onTapGesture { viewModel.showDetailsSheet = true }
+        .sheet(isPresented: $viewModel.showDetailsSheet) {
+            RecordingView(recording: recording)
         }
-        .alert("Rename recording", isPresented: $isEditing) {
-            TextField("Enter a title", text: $title)
-            Button("Save", action: save)
+        .contextMenu {
+            Button(action: { viewModel.isEditing = true }) { Label("Rename", systemImage: "pencil") }
+        }
+        .alert("Rename recording", isPresented: $viewModel.isEditing) {
+            TextField("Enter a title", text: $viewModel.title)
+            Button("Save", action: saveTitle)
             Button("Cancel", role: .cancel) {}
         }
         .swipeActions(allowsFullSwipe: false) {
@@ -91,8 +115,8 @@ struct RecordingListItem: View {
         }
     }
 
-    private func save() {
-        recording.title = title
+    private func saveTitle() {
+        recording.title = viewModel.title
     }
 
     private func deleteRecording() {
@@ -120,7 +144,7 @@ struct RecordingListItemStyle: ButtonStyle {
 }
 
 struct RecordingListItemPreview: View {
-    @State var recording = Recording(title: "Lorem ipsum dolor", path: URL(fileURLWithPath: ""))
+    @State var recording = Recording(title: "Lorem ipsum dolor 1", path: URL(fileURLWithPath: ""), transcript: Transcript(segments: [TranscriptSegment(text: "This is a test", startTime: 5, endTime: 6)]))
 
     var body: some View {
         RecordingListItem(recording: recording)

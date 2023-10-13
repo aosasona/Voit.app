@@ -12,6 +12,7 @@
 		E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C6C2AD2042100032246 /* Array+Extension.swift */; };
 		E262B8902AD6E831003AA15A /* WhisperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */; };
 		E26747CC2AD8BADA00B739F7 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26747CB2AD8BADA00B739F7 /* Double+Extension.swift */; };
+		E26747CE2AD8C58100B739F7 /* RecordingListitem+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26747CD2AD8C58100B739F7 /* RecordingListitem+ViewModel.swift */; };
 		E27DDFC22ACE313400E5C8D6 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */; };
 		E27DDFE62ACF458300E5C8D6 /* base.bin in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE22ACF457C00E5C8D6 /* base.bin */; };
 		E27DDFE72ACF458300E5C8D6 /* tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */; };
@@ -59,6 +60,7 @@
 		E23E0C6C2AD2042100032246 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperDelegate.swift; sourceTree = "<group>"; };
 		E26747CB2AD8BADA00B739F7 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		E26747CD2AD8C58100B739F7 /* RecordingListitem+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordingListitem+ViewModel.swift"; sourceTree = "<group>"; };
 		E27DDFE22ACF457C00E5C8D6 /* base.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = base.bin; sourceTree = "<group>"; };
 		E27DDFE32ACF457E00E5C8D6 /* tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
 		E27DDFE42ACF458100E5C8D6 /* tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = tiny.bin; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 				E262B88F2AD6E831003AA15A /* WhisperDelegate.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		E26747CF2AD8C5A300B739F7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E26747CD2AD8C58100B739F7 /* RecordingListitem+ViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E27DDFBF2ACE261100E5C8D6 /* Utils */ = {
@@ -223,6 +233,7 @@
 		E29BACA82AC9CA5600D2DE5C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E26747CF2AD8C5A300B739F7 /* ViewModels */,
 				E29BACAC2AC9CA9400D2DE5C /* Recording.swift */,
 				E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */,
 				E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */,
@@ -367,6 +378,7 @@
 				E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */,
 				E26747CC2AD8BADA00B739F7 /* Double+Extension.swift in Sources */,
 				E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */,
+				E26747CE2AD8C58100B739F7 /* RecordingListitem+ViewModel.swift in Sources */,
 				E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */,
 				E2FDBC722AD2123400577C58 /* RecordingView.swift in Sources */,
 				E299079D2AD652BF00B0E9CA /* Notification+Service.swift in Sources */,
