@@ -24,8 +24,9 @@ final class TranscriptionEngine: ObservableObject {
     @Published var isLocked = false
     
     private var ctx: Whisper? = nil
-    private let modelController = ModelService()
+    private let modelService = ModelService()
     private let processingQueue = DispatchQueue(label: "queue.processing")
+    
     
     // Queue methods
     public func enqueue(_ recording: Recording) {
@@ -54,8 +55,8 @@ final class TranscriptionEngine: ObservableObject {
     public func initWhisperCtx() throws {
         DispatchQueue.main.async { self.hasInitializedContext = false }
         let params = WhisperParams(strategy: .greedy)
-        params.language = self.modelController.language
-        guard let modelUrl = ModelService.getModelURL(modelController.model) else { return }
+        params.language = self.modelService.language
+        guard let modelUrl = ModelService.getModelURL(modelService.model) else { return }
         self.ctx = Whisper(fromFileURL: modelUrl, withParams: params)
         DispatchQueue.main.async { self.hasInitializedContext = true }
     }
@@ -101,7 +102,7 @@ final class TranscriptionEngine: ObservableObject {
         recording.status = .failed
         self.unlock()
         DispatchQueue.main.async {
-            NotificationService.main.trigger(title: "Processing failed!", subtitle: "Failed to process `\(recording.title)`")
+            NotificationService.main.trigger(title: "Processing failed!", subtitle: "Failed to process \(recording.title)")
             self.dequeue()
             self.startProcessing()
         }
@@ -132,7 +133,7 @@ final class TranscriptionEngine: ObservableObject {
                 // Remove from queue, release lock and recursely process next item
                 self.unlock()
                 DispatchQueue.main.async {
-                    NotificationService.main.trigger(title: "Recording processed!", subtitle: "`\(recording.title)` has now been processed and added to your library")
+                    NotificationService.main.trigger(title: "Recording processed!", subtitle: "\(recording.title) has now been processed and added to your library")
                     self.dequeue()
                     self.startProcessing()
                 }
