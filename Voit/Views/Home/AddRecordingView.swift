@@ -49,33 +49,38 @@ struct AddRecordingView: View {
         files.forEach { file in
             group.enter()
             importQueue.async(group: group) {
-                if !file.startAccessingSecurityScopedResource() {
-                    triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
-                    group.leave()
-                    return
-                }
-
-                do {
-                    guard let recording = try AudioService.importFile(file: file, folder: folder) else {
-                        triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
+                Task(priority: .background) {
+                    if !file.startAccessingSecurityScopedResource() {
+                        triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
                         group.leave()
                         return
                     }
+                    defer { file.stopAccessingSecurityScopedResource() }
 
-                    DispatchQueue.main.async {
-                        context.insert(recording)
-                        transcriptionEngine.enqueue(recording)
+                    do {
+                        guard let recording = try await AudioService.importFile(file: file, folder: folder) else {
+                            triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
+                            group.leave()
+                            return
+                        }
+
+                        await MainActor.run {
+                            context.insert(recording)
+                            transcriptionEngine.enqueue(recording)
+                            group.leave()
+                        }
+
+                        return
+                    } catch FileSystem.FSError.failedToGetDocumentDir {
+                        triggerError("Failed to get document directory: this should have never happened")
+                        group.leave()
+                    } catch AudioService.ImportError.unableToDetermineDuration {
+                        triggerError("Failed to extract metadata for \(file.lastPathComponent), skipping...")
+                        group.leave()
+                    } catch {
+                        triggerError("Failed to import file: \(file.lastPathComponent)", fromExternalQueue: true)
                         group.leave()
                     }
-                    file.stopAccessingSecurityScopedResource()
-                    return
-                } catch FileSystem.FSError.failedToGetDocumentDir {
-                    // if this ever happens, just crash the app and make the user launch it again
-                    triggerError("Failed to get document directory: this should have never happened")
-                    group.leave()
-                } catch {
-                    triggerError("Failed to import file: \(file.lastPathComponent)", fromExternalQueue: true)
-                    group.leave()
                 }
             }
         }
