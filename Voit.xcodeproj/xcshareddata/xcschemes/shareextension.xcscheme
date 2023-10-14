@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E29BAC892AC9A66400D2DE5C"
-               BuildableName = "Voit.app"
-               BlueprintName = "Voit"
+               BuildableName = "Voit PROD.app"
+               BlueprintName = "Voit PROD"
                ReferencedContainer = "container:Voit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E29BAC892AC9A66400D2DE5C"
-            BuildableName = "Voit.app"
-            BlueprintName = "Voit"
+            BuildableName = "Voit PROD.app"
+            BlueprintName = "Voit PROD"
             ReferencedContainer = "container:Voit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E29BAC892AC9A66400D2DE5C"
-            BuildableName = "Voit.app"
-            BlueprintName = "Voit"
+            BuildableName = "Voit PROD.app"
+            BlueprintName = "Voit PROD"
             ReferencedContainer = "container:Voit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
