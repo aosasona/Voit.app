@@ -13,7 +13,7 @@ struct ProcessingQueueListView: View {
     var body: some View {
         VStack {
             List {
-                Text("WTF")
+                Text("Coming soon")
             }
         }
     }
