@@ -10,5 +10,5 @@ import Foundation
 final class RecordingListItemViewModel: ObservableObject {
     @Published var isEditing: Bool = false
     @Published var title: String = ""
-    @Published var showDetailsSheet = false
+    @Published var isFullScreen = false
 }

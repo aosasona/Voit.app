@@ -13,6 +13,7 @@ struct RecordingsListView: View {
 
     @Query(sort: \Recording.createdAt, order: .reverse, animation: .easeOut) var allRecordings: [Recording]
     @State private var searchQuery: String = ""
+    @State private var itemInFullScreen: Recording? = nil
 
     var recordings: [Recording] {
         guard searchQuery.isEmpty == false else { return allRecordings }
@@ -29,7 +30,7 @@ struct RecordingsListView: View {
     var body: some View {
         List {
             ForEach(recordings, id: \.self) { recording in
-                RecordingListItem(recording: recording)
+                RecordingListItem(recording: recording, expand: { self.itemInFullScreen = recording })
             }
         }
         .listStyle(.plain)

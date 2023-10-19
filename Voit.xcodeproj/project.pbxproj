@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E236D5AB2AE1D21B006111D9 /* ExpandedRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236D5AA2AE1D21B006111D9 /* ExpandedRecordingView.swift */; };
 		E23E0C662AD1A87C00032246 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C652AD1A87C00032246 /* FileSystem.swift */; };
 		E23E0C6A2AD1CA7000032246 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C692AD1CA7000032246 /* FoldersListView.swift */; };
 		E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23E0C6C2AD2042100032246 /* Array+Extension.swift */; };
@@ -55,7 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E236D5A52ADB16E0006111D9 /* Voit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Voit copy-Info.plist"; path = "/Users/macintosh/personal/Voit/Voit copy-Info.plist"; sourceTree = "<absolute>"; };
+		E236D5AA2AE1D21B006111D9 /* ExpandedRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedRecordingView.swift; sourceTree = "<group>"; };
 		E23E0C652AD1A87C00032246 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		E23E0C692AD1CA7000032246 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
 		E23E0C6C2AD2042100032246 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -70,7 +71,7 @@
 		E27DDFF92ACF6E3A00E5C8D6 /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		E27DDFFB2ACF86CB00E5C8D6 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		E299079C2AD652BF00B0E9CA /* Notification+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Service.swift"; sourceTree = "<group>"; };
-		E29BAC8A2AC9A66400D2DE5C /* Voit PROD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voit PROD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E29BAC8A2AC9A66400D2DE5C /* Voit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29BAC8D2AC9A66400D2DE5C /* VoitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoitApp.swift; sourceTree = "<group>"; };
 		E29BAC932AC9A66600D2DE5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E29BAC962AC9A66600D2DE5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -182,14 +183,13 @@
 			children = (
 				E29BAC8C2AC9A66400D2DE5C /* Voit */,
 				E29BAC8B2AC9A66400D2DE5C /* Products */,
-				E236D5A52ADB16E0006111D9 /* Voit copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		E29BAC8B2AC9A66400D2DE5C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E29BAC8A2AC9A66400D2DE5C /* Voit PROD.app */,
+				E29BAC8A2AC9A66400D2DE5C /* Voit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +276,7 @@
 				E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */,
 				E2FDBC712AD2123400577C58 /* RecordingView.swift */,
 				E2FDBC732AD2156800577C58 /* RecordingListItem.swift */,
+				E236D5AA2AE1D21B006111D9 /* ExpandedRecordingView.swift */,
 			);
 			path = Recordings;
 			sourceTree = "<group>";
@@ -283,9 +284,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E29BAC892AC9A66400D2DE5C /* Voit PROD */ = {
+		E29BAC892AC9A66400D2DE5C /* Voit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E29BAC9C2AC9A66600D2DE5C /* Build configuration list for PBXNativeTarget "Voit PROD" */;
+			buildConfigurationList = E29BAC9C2AC9A66600D2DE5C /* Build configuration list for PBXNativeTarget "Voit" */;
 			buildPhases = (
 				E29BAC862AC9A66400D2DE5C /* Sources */,
 				E29BAC872AC9A66400D2DE5C /* Frameworks */,
@@ -296,13 +297,13 @@
 			);
 			dependencies = (
 			);
-			name = "Voit PROD";
+			name = Voit;
 			packageProductDependencies = (
 				E27DDFC12ACE313400E5C8D6 /* SwiftWhisper */,
 				E27DDFF12ACF4C4200E5C8D6 /* AudioKit */,
 			);
 			productName = Voit;
-			productReference = E29BAC8A2AC9A66400D2DE5C /* Voit PROD.app */;
+			productReference = E29BAC8A2AC9A66400D2DE5C /* Voit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -337,7 +338,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E29BAC892AC9A66400D2DE5C /* Voit PROD */,
+				E29BAC892AC9A66400D2DE5C /* Voit */,
 			);
 		};
 /* End PBXProject section */
@@ -365,6 +366,7 @@
 			files = (
 				E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */,
 				E262B8902AD6E831003AA15A /* WhisperDelegate.swift in Sources */,
+				E236D5AB2AE1D21B006111D9 /* ExpandedRecordingView.swift in Sources */,
 				E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */,
 				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
 				E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */,
@@ -801,7 +803,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E29BAC9C2AC9A66600D2DE5C /* Build configuration list for PBXNativeTarget "Voit PROD" */ = {
+		E29BAC9C2AC9A66600D2DE5C /* Build configuration list for PBXNativeTarget "Voit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E29BAC9D2AC9A66600D2DE5C /* Debug */,

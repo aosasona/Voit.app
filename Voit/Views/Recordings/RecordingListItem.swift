@@ -14,6 +14,8 @@ struct RecordingListItem: View {
     @StateObject var viewModel = RecordingListItemViewModel()
     @State var recording: Recording
 
+    let expand: () -> Void
+
     var statusBgColor: Color {
         return switch recording.status {
         case .pending:
@@ -89,11 +91,8 @@ struct RecordingListItem: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 1.0)
         }
-        .task { viewModel.title = recording.title }
-        .onTapGesture { viewModel.showDetailsSheet = true }
-        .sheet(isPresented: $viewModel.showDetailsSheet) {
-            RecordingView(recording: recording)
-        }
+        .task { viewModel.title = recording.title } // SwiftData saves on each keypress, I don't want that here
+        .onTapGesture { expand() }
         .contextMenu {
             Button(action: { viewModel.isEditing = true }) { Label("Rename", systemImage: "pencil") }
         }
@@ -145,9 +144,9 @@ struct RecordingListItemStyle: ButtonStyle {
 
 struct RecordingListItemPreview: View {
     @State var recording = Recording(title: "Lorem ipsum dolor 1", path: URL(fileURLWithPath: ""), transcript: Transcript(segments: [TranscriptSegment(text: "This is a test", startTime: 5, endTime: 6)]))
-
+    
     var body: some View {
-        RecordingListItem(recording: recording)
+        RecordingListItem(recording: recording, expand: {})
     }
 }
 
