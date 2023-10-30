@@ -29,10 +29,10 @@ final class TranscriptionEngine: ObservableObject {
     
     
     // Queue methods
-    public func enqueue(_ recording: Recording) {
+    public func enqueue(_ recording: Recording, retranscribe: Bool = false) {
         // make sure it hasn't failed one too many times before adding it to the queue
         guard recording.failedAttempts < 5 else { return } // Just avoid a recording that has failed 5 times already
-        guard recording.status != .processed else { return } // We don't care about an item that has been marked as processed
+        guard recording.status != .processed || retranscribe else { return } // We don't care about an item that has been marked as processed
         guard !self.queue.contains(where: { $0.id == recording.id }) else { return } // Ensure an item cannot be enqueued twice
         
         // reset the status assuming it got cancelled by something other than the engine itself (say the user closed the app)

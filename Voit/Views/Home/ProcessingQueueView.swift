@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProcessingQueueView: View {
     @EnvironmentObject var engine: TranscriptionEngine
+    
     @State private var showQueue = false
     
     private let animationValue = Animation.bouncy(duration: 0.4)

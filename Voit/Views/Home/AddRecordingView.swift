@@ -12,6 +12,8 @@ import SwiftWhisper
 struct AddRecordingView: View {
     @Environment(\.modelContext) private var context
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
+    
+    @AppStorage(AppStorageKey.importBehaviour.rawValue) var importBehaviour: ImportBehaviour = .copy
 
     var currentFolder: Folder? = nil
     @State private var importing: Bool = false
@@ -49,7 +51,7 @@ struct AddRecordingView: View {
         files.forEach { file in
             group.enter()
             importQueue.async(group: group) {
-                Task(priority: .background) {
+                Task {
                     if !file.startAccessingSecurityScopedResource() {
                         triggerError("Unable to access selected file, please try again", fromExternalQueue: true)
                         group.leave()
@@ -58,18 +60,18 @@ struct AddRecordingView: View {
                     defer { file.stopAccessingSecurityScopedResource() }
 
                     do {
-                        guard let recording = try await AudioService.importFile(file: file, folder: folder) else {
+                        guard let recording = try await AudioService.importFile(file: file, folder: folder, importBehaviour: importBehaviour) else {
                             triggerError("Failed to create new recording from \(file.lastPathComponent)", fromExternalQueue: true)
                             group.leave()
                             return
                         }
 
-                        await MainActor.run {
+                        DispatchQueue.main.async {
                             context.insert(recording)
                             transcriptionEngine.enqueue(recording)
-                            group.leave()
                         }
 
+                        group.leave()
                         return
                     } catch FileSystem.FSError.failedToGetDocumentDir {
                         triggerError("Failed to get document directory: this should have never happened")

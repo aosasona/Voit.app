@@ -11,4 +11,5 @@ enum AppStorageKey: String {
     case selectedModel
     case selectedLanguage
     case allowNotifications
+    case importBehaviour
 }

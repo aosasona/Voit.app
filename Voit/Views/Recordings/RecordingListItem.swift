@@ -10,6 +10,7 @@ import SwiftUI
 struct RecordingListItem: View {
     @Environment(\.modelContext) var modelContext
     @EnvironmentObject private var transcriptionEngine: TranscriptionEngine
+    @EnvironmentObject private var recordingManager: RecordingManager
 
     @StateObject var viewModel = RecordingListItemViewModel()
     @State var recording: Recording
@@ -92,9 +93,13 @@ struct RecordingListItem: View {
             .padding(.top, 1.0)
         }
         .task { viewModel.title = recording.title } // SwiftData saves on each keypress, I don't want that here
-        .onTapGesture { expand() }
+        .onTapGesture { viewModel.toggleFullScreen() }
+        .fullScreenCover(isPresented: $viewModel.showFullScreen) {
+            ExpandedRecordingView(recording: $recording, dismiss: { viewModel.toggleFullScreen() })
+        }
         .contextMenu {
             Button(action: { viewModel.isEditing = true }) { Label("Rename", systemImage: "pencil") }
+            Button(action: { transcriptionEngine.enqueue(recording, retranscribe: true) }) { Label("Re-transcribe", systemImage: "arrow.clockwise") }
         }
         .alert("Rename recording", isPresented: $viewModel.isEditing) {
             TextField("Enter a title", text: $viewModel.title)

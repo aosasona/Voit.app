@@ -17,18 +17,6 @@ struct HomeView: View {
             ZStack(alignment: .bottom) {
                 RecordingsListView()
                     .navigationTitle("All recordings")
-                    .toolbar {
-                        ToolbarItemGroup(placement: .topBarTrailing) {
-                            NavigationLink(destination: FoldersListView()) { Label("Go to folders", systemImage: "folder") }
-
-                            Menu {
-                                // TODO: add picker for sorting here
-                                NavigationLink(destination: SettingsView()) { Label("Settings", systemImage: "gear") }
-                            } label: {
-                                Label("Show options", systemImage: "ellipsis.circle")
-                            }
-                        }
-                    }
 
                 ProcessingQueueView()
                     .safeAreaPadding()

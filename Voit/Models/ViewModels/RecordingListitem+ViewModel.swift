@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class RecordingListItemViewModel: ObservableObject {
     @Published var isEditing: Bool = false
     @Published var title: String = ""
-    @Published var isFullScreen = false
+    @Published var showFullScreen: Bool = false
+    
+    public func toggleFullScreen() {
+        self.showFullScreen = !showFullScreen
+    }
 }

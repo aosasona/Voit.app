@@ -59,6 +59,15 @@ final class FileSystem {
         try? FileManager.default.copyItem(at: from, to: target)
         return target
     }
+    
+    /// Move file from a URL to a user-land directory using a generated name (UUID)
+    public static func moveFile(from: URL, targetDir: Directory) throws -> URL {
+        let filename = UUID().uuidString + "." + from.pathExtension
+        guard let dirURL = getDirectoryURL(targetDir) else { throw FileSystem.FSError.unableToGetParentDir }
+        let target = dirURL.appending(path: filename)
+        try? FileManager.default.moveItem(at: from, to: target)
+        return target
+    }
 
     public static func deleteFile(path: URL) throws {
         try? FileManager.default.removeItem(at: path)

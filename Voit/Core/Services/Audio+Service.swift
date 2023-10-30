@@ -60,16 +60,17 @@ final class AudioService {
         }
     }
 
-    public static func importFile(file source: URL, folder: Folder? = nil) async throws -> Recording? {
+    public static func importFile(file source: URL, folder: Folder? = nil, importBehaviour: ImportBehaviour) async throws -> Recording? {
         if !FileSystem.exists(.recordings) { try? makeRecordingsDirectory() }
-        guard let copiedFileURL = try? FileSystem.copyFile(from: source, targetDir: .recordings) else { return nil }
+        let importFunc = importBehaviour == .copy ? FileSystem.copyFile : FileSystem.moveFile
+        guard let importedFileURL = try? importFunc(source, .recordings) else { return nil }
         
-        let asset = AVAsset(url: copiedFileURL)
+        let asset = AVAsset(url: importedFileURL)
         guard let duration = try? await asset.load(.duration) else {
             throw ImportError.unableToDetermineDuration
         }
         
-        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: copiedFileURL, folder: folder, duration: duration.seconds)
+        let recording = Recording(title: source.deletingPathExtension().lastPathComponent, path: importedFileURL, folder: folder, duration: duration.seconds)
         return recording
     }
 

@@ -12,6 +12,7 @@ import SwiftWhisper
 @main
 struct VoitApp: App {
     @ObservedObject var transcriptionEngine = TranscriptionEngine.shared
+    @ObservedObject var recordingManager = RecordingManager.shared
 
     @AppStorage(AppStorageKey.selectedModel.rawValue) var model: WhisperModel = .tiny
     @AppStorage(AppStorageKey.selectedLanguage.rawValue) var lang: WhisperLanguage = .auto
@@ -45,19 +46,29 @@ struct VoitApp: App {
                 .background(.red)
                 .edgesIgnoringSafeArea(.all)
             } else {
-                HomeView()
-                    .tint(.accentColor)
-                    .task { self.loadCtx() }
-                    .onChange(of: self.model) { self.loadCtx() }
-                    .onChange(of: self.lang) { self.loadCtx() }
-                    .onChange(of: self.transcriptionEngine.queue) { oldQueue, newQueue in
-                        if oldQueue.count > newQueue.count { return }
-                        if self.transcriptionEngine.isLocked { return }
-                        self.transcriptionEngine.startProcessing()
-                    }
+                TabView {
+                    HomeView()
+                        .tabItem {
+                            Label("Recordings", systemImage: "waveform")
+                        }
+                    SettingsView()
+                        .tabItem {
+                            Label("Settings", systemImage: "gearshape")
+                        }
+                }
+                .tint(.accentColor)
+                .task { self.loadCtx() }
+                .onChange(of: self.model) { self.loadCtx() }
+                .onChange(of: self.lang) { self.loadCtx() }
+                .onChange(of: self.transcriptionEngine.queue) { oldQueue, newQueue in
+                    if oldQueue.count > newQueue.count { return }
+                    if self.transcriptionEngine.isLocked { return }
+                    self.transcriptionEngine.startProcessing()
+                }
             }
         }
         .environmentObject(self.transcriptionEngine)
+        .environmentObject(self.recordingManager)
         .modelContainer(self.sharedModelContainer)
     }
 
