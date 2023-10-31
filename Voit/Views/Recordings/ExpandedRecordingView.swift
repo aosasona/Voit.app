@@ -21,13 +21,11 @@ struct ExpandedRecordingView: View {
                 ScrollView {
                     if let transcript = recording.transcript {
                         Text(transcript.asText())
+                            .foregroundStyle(.white)
                             .font(.system(size: 18).weight(.medium))
                             .lineLimit(nil)
                             .lineSpacing(3.0)
                             .multilineTextAlignment(.leading)
-                            .padding()
-                    } else {
-                        Text("Nothing yet")
                             .padding()
                     }
                 }
@@ -46,7 +44,7 @@ struct ExpandedRecordingView: View {
                 Button(action: dismiss) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 26.0))
-                        .foregroundColor(.secondary.opacity(0.75))
+                        .foregroundColor(.white.opacity(0.75))
                         .padding(3.0)
                 }
             }
