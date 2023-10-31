@@ -27,7 +27,6 @@ final class TranscriptionEngine: ObservableObject {
     private let modelService = ModelService()
     private let processingQueue = DispatchQueue(label: "queue.processing")
     
-    
     // Queue methods
     public func enqueue(_ recording: Recording, retranscribe: Bool = false) {
         // make sure it hasn't failed one too many times before adding it to the queue
@@ -40,7 +39,13 @@ final class TranscriptionEngine: ObservableObject {
         self.queue.append(recording)
     }
 
-    public func enqueueMultiple(_ recordings: [Recording]) { recordings.forEach { self.enqueue($0) } }
+    public func enqueueMultiple(_ recordings: [Recording]) {
+        recordings.forEach {
+            $0.status = .pending
+            self.enqueue($0)
+        }
+    }
+
     private func next() -> Recording? { return self.queue.first }
     public func dequeue(_ recording: Recording) { self.queue.removeAll(where: { $0.id == recording.id }) }
     public func dequeue() {
@@ -64,15 +69,21 @@ final class TranscriptionEngine: ObservableObject {
     private func lock() { DispatchQueue.main.async { self.isLocked = true } }
     private func unlock() { DispatchQueue.main.async { self.isLocked = false } }
     
-    private func cancel(_ recording: Recording) throws {
-        if let inProgress = self.ctx?.inProgress {
-            if inProgress { try? self.ctx?.cancel {} }
+    public func cancel(_ recording: Recording) throws {
+        // if it is processing, it means that the whisper context already has it and we need to cancel it there
+        // this will in turn cause it to throw a WhisperError.cancelled error which would unlock the queue, handle the status and start processing the next item
+        // we don't need to do all of that here manually
+        if recording.status == .processing {
+            recording.status = .cancelling
+            if let inProgress = self.ctx?.inProgress {
+                if inProgress { try? self.ctx?.cancel {} }
+            }
+            
+            return
         }
         
-        // TODO: get it out of the queue properly (private for now)
-        if let recording = self.next() { recording.status = .pending }
-        DispatchQueue.main.async { self.dequeue(recording) }
-        self.startProcessing()
+        // if it's pending or something else, just remove it from the queue, it is safe
+        self.dequeue(recording)
     }
     
     private func transcribe(frames audioFrames: [Float], recording: Recording, onComplete: @escaping ([Segment]) -> Void, onFail: @escaping (Error) -> Void) {
@@ -98,11 +109,19 @@ final class TranscriptionEngine: ObservableObject {
     }
     
     private func handleProcessingError(err: Error, recording: Recording) {
-        print("Failed to process `\(recording.title)`: \(err.localizedDescription)")
-        recording.status = .failed
+        let status = switch err {
+        case WhisperError.cancelled:
+            Recording.Status.cancelled
+        default:
+            Recording.Status.failed
+        }
+        
+        recording.status = status
         self.unlock()
         DispatchQueue.main.async {
-            NotificationService.main.trigger(title: "Processing failed!", subtitle: "Failed to process \(recording.title)")
+            if status == .failed {
+                NotificationService.main.trigger(title: "Processing failed!", subtitle: "Failed to process \(recording.title)")
+            }
             self.dequeue()
             self.startProcessing()
         }

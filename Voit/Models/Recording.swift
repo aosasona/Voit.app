@@ -15,6 +15,8 @@ final class Recording {
         case processing
         case failed
         case processed
+        case cancelled
+        case cancelling
     }
     
     @Attribute(.unique) let id: UUID
@@ -62,5 +64,4 @@ final class Recording {
         self[keyPath: keyPath] = value
         lastModifiedAt = .now
     }
-    
 }
