@@ -12,7 +12,7 @@ import SwiftWhisper
 struct AddRecordingView: View {
     @Environment(\.modelContext) private var context
     @EnvironmentObject var transcriptionEngine: TranscriptionEngine
-    
+
     @AppStorage(AppStorageKey.importBehaviour.rawValue) var importBehaviour: ImportBehaviour = .copy
 
     var currentFolder: Folder? = nil

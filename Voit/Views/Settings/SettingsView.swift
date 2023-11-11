@@ -22,6 +22,8 @@ struct SettingsView: View {
     @AppStorage(AppStorageKey.selectedLanguage.rawValue) var selectedLanguage: WhisperLanguage = .auto
     @AppStorage(AppStorageKey.allowNotifications.rawValue) var allowNotifications: Bool = false
     @AppStorage(AppStorageKey.importBehaviour.rawValue) var importBehaviour: ImportBehaviour = .copy
+    @AppStorage(AppStorageKey.skipForward.rawValue) var skipForward: Int = 5
+    @AppStorage(AppStorageKey.skipBack.rawValue) var skipBack: Int = 5
 
     @State var showErrorAlert = false
     @State var errorMessage: String? = nil
@@ -33,7 +35,7 @@ struct SettingsView: View {
                     Toggle("Enable notifications", isOn: $allowNotifications)
                 }
 
-                Section {
+                Section(header: Text("Transcription")) {
                     Picker("Model", selection: $selectedModel) {
                         Text("Tiny (default)").tag(WhisperModel.tiny)
                         Text("Standard").tag(WhisperModel.base)
@@ -47,7 +49,7 @@ struct SettingsView: View {
                 }
                 .pickerStyle(.menu)
 
-                Section(footer: Text("Copy or move imported files from the source directory")) {
+                Section(header: Text("Audio import"), footer: Text("Copy or move imported files from the source directory")) {
                     Picker("Import behaviour", selection: $importBehaviour) {
                         ForEach(ImportBehaviour.allCases) { behaviour in
                             Text(behaviour.rawValue).tag(behaviour)
@@ -55,6 +57,24 @@ struct SettingsView: View {
                     }
                 }
                 .pickerStyle(.menu)
+
+                Section(header: Text("Player")) {
+                    Picker("Skip forward", selection: $skipForward) {
+                        ForEach([5, 10, 15, 30, 45, 60].reversed(), id: \.self) { val in
+                            Button(action: { skipForward = val }) {
+                                Label(title: { Text("\(val)s") }, icon: { Image(systemName: "goforward.\(val)") }).tag(val)
+                            }
+                        }
+                    }
+
+                    Picker("Skip back", selection: $skipBack) {
+                        ForEach([5, 10, 15, 30, 45, 60].reversed(), id: \.self) { val in
+                            Button(action: { skipBack = val }) {
+                                Label(title: { Text("\(val)s") }, icon: { Image(systemName: "gobackward.\(val)") }).tag(val)
+                            }
+                        }
+                    }
+                }
             }
             .navigationTitle("Settings")
             .onChange(of: allowNotifications) { _, newValue in

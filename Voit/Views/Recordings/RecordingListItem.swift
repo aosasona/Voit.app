@@ -15,8 +15,6 @@ struct RecordingListItem: View {
     @StateObject var viewModel = RecordingListItemViewModel()
     @State var recording: Recording
 
-    let expand: () -> Void
-
     var statusBgColor: Color {
         return switch recording.status {
         case .pending:
@@ -124,11 +122,11 @@ struct RecordingListItem: View {
                 }
                 .tint(.red)
                 .disabled(recording.status == .cancelling)
-            }
 
-            Button(action: {}) {
-                Label("Move to...", systemImage: "folder.fill")
-            }.tint(.indigo)
+                Button(action: {}) {
+                    Label("Move to...", systemImage: "folder.fill")
+                }.tint(.indigo)
+            }
         }
         .buttonStyle(RecordingListItemStyle())
     }
@@ -149,11 +147,11 @@ struct RecordingListItem: View {
 
     private func deleteRecording() {
         // Prevent deletion of a recording that is already being processed
-        if recording.status == .processing { return }
-        DispatchQueue.main.async { transcriptionEngine.dequeue(recording) }
-        defer { modelContext.delete(recording) }
-
         do {
+            if recording.status == .processing { return }
+            transcriptionEngine.dequeue(recording)
+            defer { modelContext.delete(recording) }
+
             guard let path = recording.path else { return }
             try FileSystem.deleteFile(path: path)
         } catch {
@@ -175,7 +173,7 @@ struct RecordingListItemPreview: View {
     @State var recording = Recording(title: "Lorem ipsum dolor 1", path: URL(fileURLWithPath: ""), transcript: Transcript(segments: [TranscriptSegment(text: "This is a test", startTime: 5, endTime: 6)]))
 
     var body: some View {
-        RecordingListItem(recording: recording, expand: {})
+        RecordingListItem(recording: recording)
     }
 }
 

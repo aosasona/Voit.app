@@ -19,7 +19,7 @@ final class Recording {
         case cancelling
     }
     
-    @Attribute(.unique) let id: UUID
+    @Attribute(.unique) let id: UUID = UUID()
     var title: String
     /// The filename of the file eg. something.mp3 - Apple changes the container UUID from time to time so you can't save the full URL
     var filename: String
@@ -48,7 +48,6 @@ final class Recording {
     }
     
     init(title: String, path: URL, folder: Folder? = nil, transcript: Transcript? = nil, duration: Double = 0.0, locked: Bool = false, status: Status = .pending) {
-        self.id = UUID()
         self.title = title
         self.filename = path.lastPathComponent
         self.duration = duration

@@ -23,9 +23,7 @@ struct HomeView: View {
             }
         }
         .onChange(of: engine.hasInitializedContext) {
-            DispatchQueue(label: "load.unprocessed.recordings").sync {
-                if engine.hasInitializedContext { fetchUnprocessedRecordings() }
-            }
+            if engine.hasInitializedContext { fetchUnprocessedRecordings() }
         }
     }
 
@@ -38,9 +36,7 @@ struct HomeView: View {
 
         do {
             let recordings: [Recording] = try context.fetch(descriptor)
-            DispatchQueue.main.async {
-                engine.enqueueMultiple(recordings)
-            }
+            engine.enqueueMultiple(recordings)
         } catch {
             print(error.localizedDescription)
         }

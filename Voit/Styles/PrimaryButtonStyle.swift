@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PrimaryButton: ButtonStyle {
+struct PrimaryButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) var isEnabled: Bool
 
     func makeBody(configuration: Configuration) -> some View {
@@ -27,10 +27,10 @@ struct PrimaryButton: ButtonStyle {
 #Preview {
     VStack {
         Button("Enabled") {}
-            .buttonStyle(PrimaryButton())
+            .buttonStyle(PrimaryButtonStyle())
 
         Button("Disabled") {}
-            .buttonStyle(PrimaryButton())
+            .buttonStyle(PrimaryButtonStyle())
             .disabled(true)
     }
 }

@@ -32,13 +32,14 @@
 		E29BACA52AC9BF3000D2DE5C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */; };
 		E29BACA72AC9C97900D2DE5C /* ProcessingQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */; };
 		E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29BACAC2AC9CA9400D2DE5C /* Recording.swift */; };
+		E2AA87E72AFFFE9900B22098 /* PressableButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AA87E62AFFFE9900B22098 /* PressableButtonStyle.swift */; };
 		E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */; };
 		E2C7BD162AD0E4B50044E018 /* ProcessingQueueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */; };
 		E2DC9B4F2AC9FE35008135E3 /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */; };
 		E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */; };
 		E2DC9B532ACA14A0008135E3 /* AddRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */; };
 		E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */; };
-		E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */; };
+		E2DC9B602ACCEF05008135E3 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9B5F2ACCEF05008135E3 /* PrimaryButtonStyle.swift */; };
 		E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FDBC732AD2156800577C58 /* RecordingListItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,13 +83,14 @@
 		E29BACA42AC9BF3000D2DE5C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E29BACA62AC9C97900D2DE5C /* ProcessingQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueView.swift; sourceTree = "<group>"; };
 		E29BACAC2AC9CA9400D2DE5C /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		E2AA87E62AFFFE9900B22098 /* PressableButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressableButtonStyle.swift; sourceTree = "<group>"; };
 		E2B6330A2ACE244B0043B42D /* AppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKey.swift; sourceTree = "<group>"; };
 		E2C7BD152AD0E4B50044E018 /* ProcessingQueueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueueListView.swift; sourceTree = "<group>"; };
 		E2DC9B4E2AC9FE35008135E3 /* RecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsListView.swift; sourceTree = "<group>"; };
 		E2DC9B502ACA02C4008135E3 /* TranscriptionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionEngine.swift; sourceTree = "<group>"; };
 		E2DC9B522ACA14A0008135E3 /* AddRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecordingView.swift; sourceTree = "<group>"; };
 		E2DC9B5A2ACCDE2B008135E3 /* Model+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Service.swift"; sourceTree = "<group>"; };
-		E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		E2DC9B5F2ACCEF05008135E3 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
 		E2FDBC732AD2156800577C58 /* RecordingListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,7 +268,8 @@
 		E2DC9B5E2ACCEEEF008135E3 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				E2DC9B5F2ACCEF05008135E3 /* PrimaryButton.swift */,
+				E2DC9B5F2ACCEF05008135E3 /* PrimaryButtonStyle.swift */,
+				E2AA87E62AFFFE9900B22098 /* PressableButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -368,7 +371,7 @@
 				E262B8902AD6E831003AA15A /* WhisperDelegate.swift in Sources */,
 				E236D5AB2AE1D21B006111D9 /* ExpandedRecordingView.swift in Sources */,
 				E27DDFFC2ACF86CB00E5C8D6 /* Folder.swift in Sources */,
-				E2DC9B602ACCEF05008135E3 /* PrimaryButton.swift in Sources */,
+				E2DC9B602ACCEF05008135E3 /* PrimaryButtonStyle.swift in Sources */,
 				E2DC9B5B2ACCDE2B008135E3 /* Model+Service.swift in Sources */,
 				E2DC9B512ACA02C4008135E3 /* TranscriptionEngine.swift in Sources */,
 				E27DDFFA2ACF6E3A00E5C8D6 /* Transcript.swift in Sources */,
@@ -379,6 +382,7 @@
 				E236D5AD2AE3D905006111D9 /* RecordingManager.swift in Sources */,
 				E23E0C6D2AD2042100032246 /* Array+Extension.swift in Sources */,
 				E2B6330B2ACE244B0043B42D /* AppStorageKey.swift in Sources */,
+				E2AA87E72AFFFE9900B22098 /* PressableButtonStyle.swift in Sources */,
 				E29BACAD2AC9CA9400D2DE5C /* Recording.swift in Sources */,
 				E2FDBC742AD2156800577C58 /* RecordingListItem.swift in Sources */,
 				E26747CC2AD8BADA00B739F7 /* Double+Extension.swift in Sources */,

@@ -46,12 +46,15 @@ final class TranscriptionEngine: ObservableObject {
         }
     }
 
-    private func next() -> Recording? { return self.queue.first }
-    public func dequeue(_ recording: Recording) { self.queue.removeAll(where: { $0.id == recording.id }) }
+    public func dequeue(_ recording: Recording) {
+        self.queue.removeAll(where: { $0.id == recording.id })
+    }
     public func dequeue() {
         guard self.queue.count > 0 else { return }
         self.queue.remove(at: 0)
     }
+    
+    private func next() -> Recording? { return self.queue.first }
     
     // Engine methods
     public func isImportingFiles() { DispatchQueue.main.async { self.importingFiles = true } }
