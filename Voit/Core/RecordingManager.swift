@@ -36,7 +36,7 @@ final class RecordingManager: ObservableObject {
         engine.output = mixer
         
         do {
-            try AudioKit.Settings.setSession(category: .playback, with: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP])
+            try AudioKit.Settings.setSession(category: .playback, with: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP, .duckOthers])
             try engine.start()
         } catch {
             print("AudioEngine Error: \(error.localizedDescription)")
@@ -44,22 +44,24 @@ final class RecordingManager: ObservableObject {
     }
     
     public func play(recording: Recording) throws {
+        // Stop both the player
+        if player.isPlaying { player.stop() }
+        isPlaying = false
+        
         self.recording = recording
         let shouldBuffer = (self.recording?.duration ?? 0) <= 120.0
         if !engine.avEngine.isRunning { try? engine.start() }
-        if player.isPlaying { player.stop() }
         
         if let url = self.recording?.path {
             do {
                 try player.load(url: url, buffered: shouldBuffer)
+                player.isLooping = shouldBuffer
+                resume()
             } catch {
                 print(error.localizedDescription)
                 throw RecordingManagerError.audioPlayerFailedToLoad
             }
             
-            player.isLooping = shouldBuffer
-            player.play()
-            isPlaying = true
         } else {
             throw RecordingManagerError.noUrlPresent
         }
@@ -67,12 +69,12 @@ final class RecordingManager: ObservableObject {
     
     public func resume() {
         player.play()
-        isPlaying = true
+        isPlaying = player.isPlaying
     }
     
     public func pause() {
         player.pause()
-        isPlaying = false
+        isPlaying = player.isPlaying
     }
     
     public func setPlaybackSpeed(speed: Double) {

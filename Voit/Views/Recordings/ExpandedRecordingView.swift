@@ -31,11 +31,6 @@ struct ExpandedRecordingView: View {
             }
         }
         .background(.ultraThinMaterial)
-        .onAppear {
-            if manager.recording != recording {
-                try? manager.play(recording: recording)
-            }
-        }
     }
 
     func Player() -> some View {
@@ -79,8 +74,7 @@ struct ExpandedRecordingView: View {
 
             Spacer()
 
-            Menu {
-            } label: {
+            Menu {} label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 20.0))
                     .foregroundColor(.white)
