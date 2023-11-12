@@ -15,28 +15,39 @@ struct ExpandedRecordingView: View {
 
     @Binding var recording: Recording
     @State private var showSpeedPicker = false
+    @State private var loadingPlayer = true
     public let dismiss: () -> Void
 
     var body: some View {
         ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 0)
                 .fill(LinearGradient(colors: [.accent.opacity(colorScheme == .dark ? 0.6 : 1), .black], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .ignoresSafeArea(.all)
 
-            if recording.status == .processed {
-                Player()
-            } else {
-                Text("Nothing here yet")
-                    .foregroundStyle(.white)
+            VStack {
+                Header()
+                if recording.status == .processed {
+                    TranscriptionView()
+                } else {
+                    Text("File not processed yet, no transcript to display...")
+                        .foregroundStyle(.white)
+                        .padding()
+                }
+                Footer()
             }
         }
         .background(.ultraThinMaterial)
+        .onAppear {
+            if recording != manager.recording {
+                try? manager.load(recording: recording)
+                if !manager.isPlaying { manager.play() }
+            }
+            loadingPlayer = false
+        }
     }
 
-    func Player() -> some View {
+    func TranscriptionView() -> some View {
         VStack {
-            Header()
-
             ScrollView {
                 if let transcript = recording.transcript {
                     Text(transcript.asText())
@@ -49,8 +60,6 @@ struct ExpandedRecordingView: View {
             }
             .scrollIndicators(.hidden)
             .padding(.horizontal)
-
-            Footer()
         }
     }
 
@@ -115,8 +124,9 @@ struct ExpandedRecordingView: View {
                             .foregroundColor(.white)
                     }
                     .buttonStyle(PressableButtonStyle())
+                    .disabled(loadingPlayer)
 
-                    Button(action: manager.isPlaying ? manager.pause : manager.resume) {
+                    Button(action: manager.isPlaying ? manager.pause : manager.play) {
                         Image(systemName: manager.isPlaying ? "pause.fill" : "play.fill")
                             .font(.system(size: 40.0))
                             .padding(30)
@@ -126,6 +136,7 @@ struct ExpandedRecordingView: View {
                     .background(Color.white)
                     .clipShape(Circle())
                     .buttonStyle(PressableButtonStyle())
+                    .disabled(loadingPlayer)
 
                     Button(action: { manager.goForwards(Double(skipForward)) }) {
                         Image(systemName: "goforward.\(skipForward)")
@@ -133,6 +144,7 @@ struct ExpandedRecordingView: View {
                             .foregroundColor(.white)
                     }
                     .buttonStyle(PressableButtonStyle())
+                    .disabled(loadingPlayer)
                 }
 
                 Spacer()

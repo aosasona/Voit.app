@@ -132,8 +132,9 @@ struct RecordingListItem: View {
     }
 
     func showExpandedView() {
-        if recording.transcript != nil { viewModel.toggleFullScreen() }
-        try? recordingManager.play(recording: recording)
+        if recording.transcript != nil {
+            viewModel.toggleFullScreen()
+        }
     }
 
     private func cancel() {

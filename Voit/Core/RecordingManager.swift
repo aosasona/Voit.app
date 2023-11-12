@@ -6,8 +6,11 @@
 //
 
 import AudioKit
+import AVFoundation
 import Combine
 import Foundation
+import MediaPlayer
+import SwiftUI
 
 enum RecordingManagerError: String, Error {
     case noUrlPresent = "Recording has no URL present, failed to load"
@@ -22,86 +25,121 @@ enum SeekDirection {
 final class RecordingManager: ObservableObject {
     static let shared = RecordingManager()
     
-    let mixer: Mixer
-    private let engine = AudioEngine()
-    public let player = AudioPlayer()
+    @AppStorage(AppStorageKey.skipForward.rawValue) var skipForward: Int = 5
+    @AppStorage(AppStorageKey.skipBack.rawValue) var skipBack: Int = 5
+    public let player = AVPlayer()
+    private let audioSession = AVAudioSession.sharedInstance()
     
     @Published public var recording: Recording? = nil
     @Published public var isPlaying: Bool = false
     @Published public var playbackSpeed: Double = 1.0
     
-    init() {
-        mixer = Mixer()
-        mixer.addInput(player)
-        engine.output = mixer
+    private func setupRTC() {
+        let commandCenter = MPRemoteCommandCenter.shared()
         
-        do {
-            try AudioKit.Settings.setSession(category: .playback, with: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP, .duckOthers])
-            try engine.start()
-        } catch {
-            print("AudioEngine Error: \(error.localizedDescription)")
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.playCommand.addTarget { _ in
+            if !self.isPlaying {
+                self.play()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.pauseCommand.addTarget { _ in
+            if self.isPlaying {
+                self.pause()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.skipForwardCommand.isEnabled = true
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: skipForward)]
+        commandCenter.skipForwardCommand.addTarget { _ in
+            self.goForwards(Double(self.skipForward))
+            return .success
+        }
+        
+        commandCenter.skipBackwardCommand.isEnabled = true
+        commandCenter.skipBackwardCommand.preferredIntervals = [NSNumber(value: skipBack)]
+        commandCenter.skipBackwardCommand.addTarget { _ in
+            self.goBackwards(Double(self.skipForward))
+            return .success
         }
     }
     
-    public func play(recording: Recording) throws {
-        // Stop both the player
-        if player.isPlaying { player.stop() }
-        isPlaying = false
+    private func registerNowPlaying() {
+        var info = [String: Any]()
+        info[MPMediaItemPropertyTitle] = recording?.title ?? "Voit audio"
+        if let url = recording?.path {
+            info[MPNowPlayingInfoPropertyAssetURL] = url
+        }
+        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.currentItem?.currentTime().seconds ?? 0.0
+        info[MPMediaItemPropertyPlaybackDuration] = player.currentItem?.duration.seconds ?? recording?.duration
+        info[MPNowPlayingInfoPropertyPlaybackRate] = playbackSpeed
         
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+    }
+    
+    public func load(recording: Recording) throws {
         self.recording = recording
-        let shouldBuffer = (self.recording?.duration ?? 0) <= 120.0
-        if !engine.avEngine.isRunning { try? engine.start() }
         
         if let url = self.recording?.path {
-            do {
-                try player.load(url: url, buffered: shouldBuffer)
-                player.isLooping = shouldBuffer
-                resume()
-            } catch {
-                print(error.localizedDescription)
-                throw RecordingManagerError.audioPlayerFailedToLoad
-            }
-            
+            let playerItem = AVPlayerItem(url: url)
+            player.replaceCurrentItem(with: playerItem)
         } else {
             throw RecordingManagerError.noUrlPresent
         }
+        
+        try? audioSession.setCategory(.playback)
+        try? audioSession.setActive(true)
+        
+        registerNowPlaying()
+        setupRTC()
     }
     
-    public func resume() {
+    public func play() {
+        isPlaying.toggle()
         player.play()
-        isPlaying = player.isPlaying
     }
     
     public func pause() {
+        isPlaying.toggle()
         player.pause()
-        isPlaying = player.isPlaying
     }
     
     public func setPlaybackSpeed(speed: Double) {
         playbackSpeed = speed
     }
     
-    private func seek(duration: Double, direction: SeekDirection) {
-        let seekTime: Double
+    private func seek(_ seekDuration: Double, direction: SeekDirection) {
+        let target: Double
+        let totalDuration = player.currentItem?.duration.seconds ?? recording?.duration ?? 0
+        let currentDuration = player.currentItem?.currentTime().seconds ?? 0
         if direction == .forwards {
-            seekTime = min(duration, player.duration - player.currentTime)
+            target = min(currentDuration + seekDuration, totalDuration)
         } else {
-            seekTime = -min(duration, player.currentTime)
+            target = max(currentDuration - seekDuration, 0.0)
         }
-        player.seek(time: seekTime)
         
-        if !player.isStarted {
+        let targetCMTime = CMTime(seconds: target, preferredTimescale: CMTimeScale(1))
+        player.seek(to: targetCMTime)
+        
+        if !isPlaying {
             player.play()
-            isPlaying = true
         }
     }
     
     public func goForwards(_ duration: Double) {
-        seek(duration: duration, direction: .forwards)
+        seek(duration, direction: .forwards)
     }
     
     public func goBackwards(_ duration: Double) {
-        seek(duration: duration, direction: .backwards)
+        seek(duration, direction: .backwards)
     }
     
     public func showRecordingView(recording: Recording) {
