@@ -101,6 +101,12 @@ struct RecordingListItem: View {
             Button(action: { viewModel.isEditing = true }) { Label("Rename", systemImage: "pencil") }
             Button(action: { transcriptionEngine.enqueue(recording, retranscribe: true) }) { Label("Re-transcribe", systemImage: "arrow.clockwise") }
             Button(action: {}) { Label("Details", systemImage: "info.circle") }
+            Button(role: .destructive, action: deleteRecording) {
+                Label("Delete", systemImage: "trash.fill")
+            }
+            .tint(.red)
+            .disabled(recording.status == .cancelling)
+
         }
         .fullScreenCover(isPresented: $viewModel.showFullScreen) {
             ExpandedRecordingView(recording: $recording, dismiss: { viewModel.toggleFullScreen() })
